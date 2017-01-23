@@ -1,0 +1,11 @@
+Hi,
+    A user has inidicated that they reject the terms and conditions
+of the Cadence EUA. The details of this user are:
+
+    name: %(realname)s
+username: %(username)s
+   email: %(email)s
+  source: %(source)s
+
+--
+The Cadence EUA webapp

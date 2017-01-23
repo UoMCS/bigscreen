@@ -1,0 +1,77 @@
+/* Remove margins from selected elements */
+.nomargin {
+    margin: 0 0;
+}
+
+/* Label to the right of switches */
+.switch-label {
+    color: #0a0a0a;
+    font-weight: normal;
+    padding-left: 0.5rem;
+    vertical-align: 50%;
+}
+
+/* Space out buttons in the title bar */
+div.top-bar-right ul.menu li {
+    padding-left: 0.25rem;
+}
+
+div.top-bar-right ul.menu li.menu-text {
+    padding: 0 0 0 0.25rem;
+}
+
+/* Centre text in title part of bar */
+div.top-bar-title {
+    padding-top: 0.5rem;
+    font-weight: bold;
+}
+
+/* fix menu button pad */
+#menubtn {
+    margin-right: 0.5rem;
+}
+
+/* fix padding for menu text with image */
+li.image {
+    padding: 0 0 0 0.25rem;
+}
+
+.menu > li > a.nopadding {
+    padding: 0;
+}
+
+
+/* title for off-canvas menu */
+div.off-canvas > h5 {
+    padding: 0.5rem 0 0 1rem;
+}
+
+/* off-canvas menu user */
+div.off-canvas .user {
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.pagemenu {
+    list-style-type: none;
+    border-bottom: 1px solid #bbb;
+    border-top: 1px solid #BBB;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+}
+
+.pagemenu > li {
+    display: inline-block;
+    border-left: 1px dotted #ddd;
+    border-right: 1px dotted #ddd;
+}
+
+.pagemenu > li > a {
+    width: 2rem;
+    padding: 0.75rem 0.75rem;
+}
+
+.pagemenu > li.active > a {
+    background: #1779ba;
+    color: #fefefe !important;
+}

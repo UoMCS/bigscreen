@@ -1,0 +1,19 @@
+{L_LOGIN_SIGNUP_GREETING},
+
+{L_LOGIN_SIGNUP_CREATED}
+
+{L_LOGIN_USERNAME}: %(username)s
+{L_LOGIN_PASSWORD}: %(password)s
+
+{L_LOGIN_SIGNUP_ACTNEEDED}
+
+%(act_url)s
+
+{L_LOGIN_SIGNUP_ALTACT}
+
+%(act_form)s
+{L_LOGIN_ACTIVATE_CODE}: %(act_code)s
+
+{L_LOGIN_SIGNUP_ENJOY}
+--
+{L_EMAIL_SIG}

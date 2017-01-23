@@ -1,0 +1,1 @@
+                    <li><a href="%(url-signup)s">{L_SIDE_SIGN_UP}</a></li>

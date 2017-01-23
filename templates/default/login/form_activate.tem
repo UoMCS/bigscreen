@@ -1,0 +1,19 @@
+            <div class="small-8 small-centered columns">
+%(error)s
+                <!-- Start activate form -->
+                <div class="activateform callout secondary">
+                    <div>{L_LOGIN_ACTIVATE_INTRO}</div>
+                    <form id="activateform" method="post" action="%(url-target)s">
+                        <div class="entry">
+                            <label for="actcode">{L_LOGIN_ACTIVATE_CODE}:<br />
+                                <input type="text" id="actcode" name="actcode" size="24" maxlength="64" />
+                            </label>
+                        </div>
+                        <div class="contextlink">(<a href="%(url-resend)s">{L_LOGIN_ACTIVATE_RESEND}</a>)</div>
+                        <div class="submit clearfix">
+                            <input type="submit" class="button float-right nomargin" id="activate" name="activate" value="{L_LOGIN_ACTIVATE}" />
+                        </div>
+                    </form>
+                </div>
+                <!-- End activate form -->
+            </div>

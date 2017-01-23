@@ -1,0 +1,19 @@
+            <div class="small-8 small-centered columns">
+%(error)s
+                <!-- Start recover form -->
+                <div class="recoverform callout secondary">
+                    <div>{L_LOGIN_RECOVER_DESC}</div>
+                    <form id="recoverform" method="post" action="%(url-target)s">
+                        <div class="entry">
+                            <label for="email">{L_LOGIN_RECOVER_EMAIL}:<br />
+                                <input type="text" id="email" name="email" size="24" maxlength="255" value=""/>
+                            </label>
+                        </div>
+                        <div class="g-recaptcha" data-sitekey="%(sitekey)s"></div>
+                        <div class="submit clearfix">
+                            <input type="submit" class="button float-right nomargin" id="dorecover" name="dorecover" value="{L_LOGIN_DORECOVER}" />
+                        </div>
+                    </form>
+                </div>
+                <!-- End recover form -->
+            </div>

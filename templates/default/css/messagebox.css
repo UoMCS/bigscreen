@@ -1,0 +1,21 @@
+.messagebox .mcore .msummary  {
+    padding: 0;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.messagebox .mcore .mtext  {
+    padding: 0;
+    margin-top: 0.5em;
+    border: none;
+}
+
+.messagebox .mbcontent img {
+    padding-right: 0.5rem;
+    box-sizing: initial;
+}
+
+.messagebox h4 {
+    border-bottom: 1px solid #888;
+}

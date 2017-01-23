@@ -1,0 +1,16 @@
+            <div class="small-8 small-centered columns">
+                <!-- Start messagebox core -->
+                <div class="messagebox callout %(class)s">
+                    <h4>%(title)s</h4>
+                    <div class="mbcontent clearfix">
+                        <img src="{V_[templatepath]}/images/%(icon)s.png" width="48" class="float-left" />
+                        <div class="mcore">
+                            <div class="msummary">%(summary)s</div>
+                            <div class="mtext">%(message)s</div>
+                        </div>
+%(additional)s
+                    </div>
+%(buttons)s
+                </div>
+                <!-- End messagebox core -->
+            </div>

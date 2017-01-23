@@ -1,0 +1,12 @@
+                    $(function() {
+                        // Toggle the persist warning box, if it exists
+                        if($('#persist').length) {
+                            $('#persist').change(function() {
+                                if($('#persist').is(':checked')) {
+                                    $('#persist-warn').fadeIn();
+                                } else {
+                                    $('#persist-warn').fadeOut();
+                                }
+                            });
+                        }
+                    });

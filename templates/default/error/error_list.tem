@@ -1,0 +1,2 @@
+<div>%(message)s</div>
+<ul>%(errors)s</ul>

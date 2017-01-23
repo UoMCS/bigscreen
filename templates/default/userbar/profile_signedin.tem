@@ -1,0 +1,4 @@
+                        <ul class="menu">
+                            <li class="menu-text"><img alt="" src="https://gravatar.com/avatar/%(gravhash)s?s=32&amp;d=mm&amp;r=g" class="avatar avatar-32" height="32" width="32" /> %(realname)s</li>
+                            <li><a class="button failure" href="%(url-signout)s">Sign out</a></li>
+                        </ul>

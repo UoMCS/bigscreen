@@ -1,0 +1,4 @@
+                            <div class="switch nomargin">
+                                <input class="switch-input nomargin" id="persist" type="checkbox" name="persist">
+                                <label class="switch-paddle" for="persist"><span class="show-for-sr">{L_LOGIN_PERSIST}</span></label><span class="switch-label">{L_LOGIN_PERSIST}</span>
+                            </div>

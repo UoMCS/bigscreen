@@ -1,0 +1,18 @@
+{L_LOGIN_LOCKOUT_GREETING} %(username)s,
+
+{L_LOGIN_LOCKOUT_MESSAGE}
+
+{L_LOGIN_USERNAME}: %(username)s
+{L_LOGIN_PASSWORD}: %(password)s
+
+{L_LOGIN_LOCKOUT_ACTNEEDED}
+
+%(act_url)s
+
+{L_LOGIN_LOCKOUT_ALTACT}
+
+%(act_form)s
+%(act_code)s
+
+--
+{L_EMAIL_SIG}

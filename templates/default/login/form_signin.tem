@@ -1,0 +1,34 @@
+            <div class="small-8 small-centered columns">
+%(error)s
+                <!-- Start login form -->
+                <div class="signinform callout secondary">
+                    <div>{L_LOGIN_INTRO}</div>
+                    <form id="signinform" method="post" action="%(url-target)s">
+                        <div class="entry">
+                            <label for="username">{L_LOGIN_USERNAME}:<br />
+                                <input type="text" id="username" name="username" size="24" maxlength="32" value="%(username)s"/>
+                            </label>
+                        </div>
+                        <div class="entry">
+                            <label for="password">{L_LOGIN_PASSWORD}:<br />
+                                <input type="password" id="password" name="password" size="24" maxlength="255" />
+                            </label>
+                        </div>
+                        <div class="persist">
+%(persist)s
+                        </div>
+                        <div class="contextlink">(<a href="%(url-forgot)s">{L_LOGIN_RECOVER}</a>)</div>
+                        <div class="submit clearfix">
+                            <input type="submit" class="button float-right nomargin" id="signin" name="signin" value="{L_LOGIN_LOGIN}" />
+                        </div>
+                    </form>
+                </div>
+                <!-- Persist warning shown when persist is enabled -->
+                <table class="notebox notebox-error hidden" id="persist-warn">
+                    <tr>
+                        <td class="nbox-image show-for-medium"><img src="{V_[templatepath]}images/error.png" width="48" height="48" alt="error" /></td>
+                        <td class="nbox-text">{L_PERSIST_WARNING}</td>
+                    </tr>
+                </table>
+                <!-- End login form -->
+            </div>

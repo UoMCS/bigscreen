@@ -1,0 +1,11 @@
+                <div class="top-bar">
+                    <div class="top-bar-left">
+                        <ul class="menu">
+                            <li><button id="menubtn" class="menu-icon dark" type="button" data-open="offCanvas"></button></li>
+                            <li class="menu-text">%(title)s</li>
+                        </ul>
+                    </div>
+                    <div class="top-bar-right show-for-medium">
+%(profile)s
+                    </div>
+                </div>

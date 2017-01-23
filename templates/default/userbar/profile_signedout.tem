@@ -1,0 +1,4 @@
+                        <ul class="menu">
+%(signup)s
+                            <li><a class="button" href="%(url-signin)s">Sign in</a></li>
+                        </ul>

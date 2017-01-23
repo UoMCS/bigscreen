@@ -1,0 +1,19 @@
+{L_LOGIN_RESEND_GREET},
+
+{L_LOGIN_RESEND_INTRO}
+
+{L_LOGIN_USERNAME}: %(username)s
+{L_LOGIN_PASSWORD}: %(password)s
+
+{L_LOGIN_SIGNUP_ACTNEEDED}
+
+%(act_url)s
+
+{L_LOGIN_SIGNUP_ALTACT}
+
+%(act_form)s
+{L_LOGIN_ACTIVATE_CODE}: %(act_code)s
+
+{L_LOGIN_RESEND_ENJOY}
+--
+{L_EMAIL_SIG}

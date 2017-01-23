@@ -1,0 +1,8 @@
+            <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+                <h5>{L_SIDE_TITLE}</h5>
+                <hr class="nomargin"/>
+                <ul class="vertical menu">
+                    <li><a href="%(url-signin)s">{L_SIDE_SIGN_IN}</a></li>
+%(signup)s
+                </ul>
+            </div>

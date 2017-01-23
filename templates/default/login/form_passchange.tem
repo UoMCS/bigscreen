@@ -1,0 +1,40 @@
+            <div class="small-8 small-centered columns">
+%(error)s
+                <!-- Start passchange form -->
+                <div class="passchangeform callout secondary">
+                    <div>%(reason)s {L_LOGIN_PASSCHANGE_INTRO}</div>
+                    <form id="signinform" method="post" action="%(url-target)s">
+                        <div class="entry">
+                            <label for="newpass">{L_LOGIN_NEWPASSWORD}:<br />
+                                <input type="password" id="newpass" name="newpass" size="24" maxlength="255" />
+                            </label>
+                        </div>
+                        <div class="entry">
+                            <label for="confirm">{L_LOGIN_CONFPASS}:<br />
+                                <input type="password" id="confirm" name="confirm" size="24" maxlength="255" />
+                            </label>
+                        </div>
+                        <hr />
+                        <div class="entry">
+                            <label for="oldpass">{L_LOGIN_OLDPASS}:<br />
+                                <input type="password" id="oldpass" name="oldpass" size="24" maxlength="255" />
+                            </label>
+                        </div>
+                        <div class="g-recaptcha" data-sitekey="%(sitekey)s"></div>
+                        <div class="submit clearfix">
+                            <input type="submit" class="button float-right nomargin" id="changepass" name="changepass" value="{L_LOGIN_SETPASS}" />
+                        </div>
+                    </form>
+                </div>
+                <!-- End passchange form -->
+            </div>
+        </div>
+        <div class="row" id="policy">
+            <div class="small-8 small-centered columns">
+                <div class="policy callout secondary">
+                    <div>{L_LOGIN_POLICY_INTRO}</div>
+                    <ul>
+%(policy)s
+                    </ul>
+                </div>
+            </div>

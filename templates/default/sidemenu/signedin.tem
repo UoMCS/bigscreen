@@ -1,0 +1,13 @@
+            <div class="off-canvas position-left" id="offCanvas" data-off-canvas>
+                <h5>{L_SIDE_TITLE}</h5>
+                <hr class="nomargin"/>
+                <ul class="vertical menu">
+                    <li><a href="%(url-front)s">{L_SIDE_FRONT}</a></li>
+%(controls)s
+                </ul>
+                <hr class="nomargin"/>
+                <div class="user"><img alt="" src="https://gravatar.com/avatar/%(gravhash)s?s=32&amp;d=mm&amp;r=g" class="avatar avatar-32" height="32" width="32" /> %(realname)s</div>
+                <ul class="vertical menu">
+                    <li><a href="%(url-signout)s">{L_SIDE_SIGN_OUT}</a></li>
+                </ul>
+            </div>

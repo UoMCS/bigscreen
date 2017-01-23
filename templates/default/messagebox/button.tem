@@ -1,0 +1,1 @@
+<a class="button %(colour)s" href="%(href)s">%(message)s</a>

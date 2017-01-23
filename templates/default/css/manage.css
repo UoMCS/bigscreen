@@ -1,0 +1,43 @@
+/* nothing */
+
+.hidden {
+    display: none;
+}
+
+.selmenu {
+    margin-bottom: 1rem;
+    height: 2.6rem;
+}
+
+ul.users {
+    margin: 0;
+    padding: 0;
+}
+
+ul.users > li {
+    list-style: none;
+    cursor: pointer;
+    padding: 3px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+ul.users > li.selected {
+    background-color: rgba(255, 174, 0, 0.24);
+}
+
+ul.users li .user_name { color: black; font-weight: bold; word-wrap: break-word; line-height: 1.1; margin-bottom: 4px; }
+ul.users li .user_agree { font-size: 0.75rem; color: #777; margin-top: 4px; margin-left: 1rem; white-space: nowrap; }
+ul.users li .user_email { font-size: 0.75rem; color: #777; margin-top: 4px; margin-left: 1rem; white-space: nowrap; }
+
+ul.user_uom {
+    margin: 0px;
+    padding: 0px;
+    margin-left: 1rem;
+}
+
+ul.user_uom li {
+    list-style: none;
+    display: inline-block;
+    color: #888;
+    font-size: 0.7rem;
+}
