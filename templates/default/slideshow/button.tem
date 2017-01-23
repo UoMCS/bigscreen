@@ -1,0 +1,1 @@
+                            <button class="%(active)s" data-slide="%(slidenum)s"></button>

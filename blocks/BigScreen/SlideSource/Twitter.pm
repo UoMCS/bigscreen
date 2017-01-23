@@ -28,7 +28,7 @@ use XML::LibXML;
 use v5.12;
 
 
-sub generate_slide {
+sub generate_slides {
     my $self = shift;
 
     my $xml = eval { XML::LibXML -> load_xml(location => $self -> {"feed_url"}); };

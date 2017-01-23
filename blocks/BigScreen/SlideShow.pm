@@ -22,15 +22,92 @@ package BigScreen::SlideShow;
 use strict;
 use experimental 'smartmatch';
 use base qw(BigScreen);
-use JSON;
+use BigScreen::System::SlideSource;
+use List::Util qw(shuffle);
 use DateTime;
 use v5.12;
 
 
+# ============================================================================
+#  Constructor
+
+## @cmethod $ new(%args)
+# Overloaded constructor for the API, loads the System::Agreement model
+# and other classes required to generate article pages.
+#
+# @param args A hash of values to initialise the object with. See the Block docs
+#             for more information.
+# @return A reference to a new BigScreen::API object on success, undef on error.
+sub new {
+    my $invocant = shift;
+    my $class    = ref($invocant) || $invocant;
+    my $self     = $class -> SUPER::new(@_)
+        or return undef;
+
+    $self -> {"sources"} = $self -> {"module"} -> load_module("BigScreen::System::SlideSource")
+        or return Webperl::SystemModule::set_error("Slide show module object creation failed: ".$self -> {"module"} -> errstr());
+
+    return $self;
+}
+
+
+# ============================================================================
+#  Content generator
+
+## @method private @ _fatal_error($error)
+# Generate the tile and content for an error page.
+#
+# @param error A string containing the error message to display
+# @return The title of the error page and an error message to place in the page.
+sub _fatal_error {
+    my $self  = shift;
+    my $error = shift;
+
+    return ("{L_SLIDES_ERR_FATAL}", $self -> {"template"} -> load_template("error/page_error.tem", { "%(message)s" => $error }));
+}
+
+
 sub _handle_default {
-    my $self = shift;
+    my $self   = shift;
+    my @slides = ();
 
+    # Fetch the list of slide sources to it can be processed
+    my $sources = $self -> {"sources"} -> get_slide_sources()
+        or return $self -> _fatal_error("Unable to obtain a list of slide sources");
 
+    foreach my $source (@{$sources}) {
+        my $slidemod = $self -> {"module"} -> load_module($source -> {"module"}, %{$source -> {"args"}})
+            or return $self -> _fatal_error("Unable to load slide module ".$source -> {"module"});
+
+        my $slides = $slidemod -> generate_slides()
+            or return $self -> _fatal_error("Unable to process slides for ".$source -> {"module"}.": ".$slidemod -> errstr());
+
+        # store the new slides if there are any
+        push(@slides, @{$slides})
+            if($slides && scalar(@{$slides}));
+
+        $slidemod -> set_slide_checked($source -> {"id"});
+    }
+
+    # Mix things up
+    @slides = shuffle @slides;
+
+    # Handle buttons
+    my $buttons = "";
+    for(my $slide = 0; $slide < scalar(@slides); ++$slide) {
+        $buttons .= $self -> {"template"} -> load_template("slideshow/button.tem",
+                                                           { "%(active)s"   => $slide ? "" : "is-active",
+                                                             "%(slidenum)s" => $slide
+                                                           });
+    }
+
+    return ("{L_SLIDES_TITLE}",
+            $self -> {"template"} -> load_template("slideshow/content.tem",
+                                                   { "%(slides)s"  => join("", @slides),
+                                                     "%(buttons)s" => $buttons,
+                                                   }
+            )
+           );
 }
 
 

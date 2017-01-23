@@ -1,0 +1,8 @@
+                    <div class="orbit" role="region" aria-label="Big Screen Slides" data-orbit>
+                        <ul class="orbit-container">
+%(slides)s
+                        </ul>
+                        <nav class="orbit-bullets">
+%(buttons)s
+                        </nav>
+                    </div>
