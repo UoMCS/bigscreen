@@ -1,0 +1,91 @@
+.slide-content a {
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.orbit-slide {
+    height: 100%;
+}
+
+.orbit-slide .slide-title {
+    font-size: 1.5rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0.3rem;
+}
+
+.orbit-slide .slide-content > h3 {
+    font-size: 1.25rem;
+}
+
+.orbit-slide .slide-byline img {
+    padding-right: 0.25rem;
+}
+
+.orbit-slide {
+    padding: 2rem 4rem;
+    color: #fff;
+}
+
+.orbit-slide.type0 {
+    background: dodgerblue;
+}
+
+.orbit-slide.type1 {
+    background: darkmagenta;
+}
+
+.orbit-slide.type2 {
+    background: rebeccapurple;
+}
+
+.orbit-slide.type3 {
+    background: darkgoldenrod;
+}
+
+.orbit-slide.type4 {
+    background: lightseagreen;
+}
+
+.orbit-slide.type5 {
+    background: seagreen;
+}
+
+.orbit-slide.type6 {
+    background: slategray;
+}
+
+.orbit-slide.type7 {
+    background: steelblue;
+}
+
+.orbit-slide.type8 {
+    background: sienna;
+}
+
+.orbit-slide.type9 {
+    background: purple;
+}
+
+.orbit-slide.typeA {
+    background: peru;
+}
+
+.orbit-slide.typeB {
+    background: midnightblue;
+}
+
+.orbit-slide.typeC {
+    background: indigo;
+}
+
+.orbit-slide.typeD {
+    background: forestgreen;
+}
+
+.orbit-slide.typeE {
+    background: darkviolet;
+}
+
+.orbit-slide.typeF {
+    background: darkred;
+}

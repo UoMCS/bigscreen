@@ -22,9 +22,6 @@ package BigScreen::SlideSource::Twitter;
 use strict;
 use experimental 'smartmatch';
 use base qw(BigScreen::SlideSource);
-use JSON;
-use DateTime;
-use XML::LibXML;
 use v5.12;
 
 

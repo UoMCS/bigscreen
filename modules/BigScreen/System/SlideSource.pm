@@ -70,7 +70,7 @@ sub set_slide_checked {
     my $mark = $self -> {"dbh"} -> prepare("UPDATE `".$self -> {"settings"} -> {"database"} -> {"slidesources"}."`
                                             SET `last_checked` = UNIX_TIMESTAMP()
                                             WHERE `id` = ?");
-    $sources -> execute($sourceid)
+    $mark -> execute($sourceid)
         or return $self -> self_error("Unable to fetch slide sources list: ".$self -> {"dbh"} -> errstr());
 
     return 1;

@@ -1,9 +1,9 @@
-                            <li class="orbit-slide">
+                            <li class="orbit-slide %(type)s">
                                 <div class="slide">
                                     <div class="slide-title">%(slide-title)s</div>
                                     <div class="slide-content">
 %(content)s
                                     </div>
-                                    <div class="slide-byline">%(slide-avatar)s %(slide-author)s</div>
+                                    <div class="slide-byline clearfix">%(slide-avatar)s %(author)s<br/>%(email)s</div>
                                 </div>
                             </li>

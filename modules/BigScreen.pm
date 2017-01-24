@@ -125,7 +125,9 @@ sub generate_bigscreen_page {
 
     my $userbar = $self -> {"module"} -> load_module("BigScreen::Userbar");
 
-    my ($topbar, $leftbar) = $userbar -> block_display($args -> {"title"}, $self -> {"block"}, $args -> {"doclink"});
+    my ($topbar, $leftbar) = $userbar -> block_display($args -> {"title"}, $self -> {"block"}, $args -> {"doclink"})
+        unless($args -> {"nouserbar"});
+
     return $self -> {"template"} -> load_template("page.tem", {"%(extrahead)s" => $args -> {"extrahead"} // "",
                                                                "%(extrajs)s"   => $args -> {"extrajs"} // "",
                                                                "%(title)s"     => $args -> {"title"} // "",

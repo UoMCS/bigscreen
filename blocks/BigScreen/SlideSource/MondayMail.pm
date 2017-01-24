@@ -22,12 +22,7 @@ package BigScreen::SlideSource::MondayMail;
 use strict;
 use experimental 'smartmatch';
 use base qw(BigScreen::SlideSource);
-use JSON;
-use DateTime;
-use XML::LibXML;
 use v5.12;
-
-use Data::Dumper;
 
 sub generate_slides {
     my $self = shift;
