@@ -32,12 +32,12 @@ use v5.12;
 #  Constructor
 
 ## @cmethod $ new(%args)
-# Overloaded constructor for the API, loads the System::Agreement model
-# and other classes required to generate article pages.
+# Overloaded constructor for the SlideShow, loads the System::SlideShow model
+# and other classes required to generate slideshow pages.
 #
 # @param args A hash of values to initialise the object with. See the Block docs
 #             for more information.
-# @return A reference to a new BigScreen::API object on success, undef on error.
+# @return A reference to a new BigScreen::SlideShow object on success, undef on error.
 sub new {
     my $invocant = shift;
     my $class    = ref($invocant) || $invocant;
@@ -86,7 +86,7 @@ sub _handle_default {
         push(@slides, @{$slides})
             if($slides && scalar(@{$slides}));
 
-        $slidemod -> set_slide_checked($source -> {"id"});
+        $self -> {"sources"} -> set_slide_checked($source -> {"id"});
     }
 
     # Mix things up
@@ -106,7 +106,8 @@ sub _handle_default {
                                                    { "%(slides)s"  => join("", @slides),
                                                      "%(buttons)s" => $buttons,
                                                    }
-            )
+            ),
+            $self -> {"template"} -> load_template("slideshow/extrahead.tem")
            );
 }
 
@@ -132,7 +133,8 @@ sub _dispatch_ui {
     return $self -> generate_bigscreen_page(title     => $title,
                                             content   => $body,
                                             extrahead => $extrahead,
-                                            extrajs   => $extrajs);
+                                            extrajs   => $extrajs,
+                                            nouserbar => 1);
 }
 
 
