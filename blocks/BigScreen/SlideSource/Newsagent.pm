@@ -25,6 +25,40 @@ use base qw(BigScreen::SlideSource);
 use Text::Sprintf::Named qw(named_sprintf);
 use v5.12;
 
+# ============================================================================
+#  Utility functions
+
+## @method private $ _strip_summary($body)
+# Given the text of a newsagent article, attempt to determine whether
+# the aut-inserted summary matches the first chunk of the body, and
+# remove the summary if it does
+#
+# @param body The newsagent article text
+# @return A string containing the possibly cleaned-up content
+sub _strip_summary {
+    my $self = shift;
+    my $body = shift;
+
+    my ($summary, $remainder) = $body =~ m|^\s*<h3>(.*?)</h3>\s*(.*?)$|s;
+
+    # If there is a summary, we need to do more work
+    if($summary) {
+        my $nohtml = $self -> {"template"} -> html_strip($remainder);
+
+        # Does the summary match the start of the html?
+        if($nohtml =~ /^\s*$summary/s) {
+            # Yes, we can strip the summary
+            return $remainder;
+        }
+    }
+
+    # No match/no summary.
+    return $body;
+}
+
+
+# ============================================================================
+#  Interface methods
 
 sub generate_slides {
     my $self = shift;
@@ -52,15 +86,15 @@ sub generate_slides {
         # And build the content
         my $image_mode = $image ? "slideshow/content-image.tem" : "slideshow/content-noimage.tem";
         my $slide_content = $self -> {"template"} -> load_template($image_mode,
-                                                                   {"%(content)s" => $desc -> to_literal,
-                                                                    "%(url)s" => $image ? $image -> getAttribute('src') : undef });
+                                                                   {"%(content)s" => $self -> _strip_summary($desc -> to_literal),
+                                                                    "%(url)s"     => $image ? $image -> getAttribute('src') : undef });
 
         my ($email, $name) = $author -> to_literal =~ /^(.*?)\s*\(([^)]+)\)$/;
-
 
         # And now create the slide
         push(@slides, $self -> {"template"} -> load_template("slideshow/slide.tem",
                                                              { "%(slide-title)s"  => $title -> to_literal,
+                                                               "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
                                                                "%(author)s"       => $name,
                                                                "%(email)s"        => $email,
                                                                "%(slide-avatar)s" => $slide_avatar,
