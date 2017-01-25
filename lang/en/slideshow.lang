@@ -1,1 +1,3 @@
 SLIDES_TITLE = Shideshow
+
+SLIDE_TWITTER_TITLE = From @%(account)s

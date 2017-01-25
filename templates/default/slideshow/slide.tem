@@ -4,6 +4,6 @@
                                     <div class="slide-content">
 %(content)s
                                     </div>
-                                    <div class="slide-byline clearfix">%(slide-avatar)s %(author)s<br/>%(email)s</div>
+                                    <div class="slide-byline clearfix">%(byline)s</div>
                                 </div>
                             </li>
