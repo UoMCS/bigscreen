@@ -17,6 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## @class
+#
+# Common parameters for all SlideSource modules:
+#
+# - `maxage`: The maximum age of any entries to display, in days. This
+#             may be fractional, so 12 hours = 0.5, 6 hours = 0.25, etc.
+#
 package BigScreen::SlideSource;
 
 use strict;
@@ -24,6 +30,7 @@ use experimental 'smartmatch';
 use base qw(BigScreen);
 use XML::LibXML;
 use LWP::UserAgent;
+use DateTime;
 use Digest;
 use Encode;
 use v5.12;
@@ -44,6 +51,11 @@ sub new {
     my $self     = $class -> SUPER::new(gravatar_url => "%(base)s?s=%(size)s&r=g&d=mm",
                                         @_)
         or return undef;
+
+    # convert the maxage string to something useful
+    $self -> {"maxage"} = DateTime -> now(time_zone => 'Europe/London')
+                                   -> subtract(seconds => ($self -> {"maxage"} * 86400))
+        if($self -> {"maxage"});
 
     return $self;
 }
@@ -96,6 +108,21 @@ sub determine_type {
 
     my $hex = uc(substr($digest -> hexdigest, -1, 1));
     return "type$hex";
+}
+
+
+## @method $ in_age_limit($date)
+# Determine whether the specified date is within the module's defined age limit
+# or not. If maxage has not been set for the module, this will always return
+# true.
+#
+# @param date The date to test.
+# @return true if the date is within the age limit, false if not.
+sub in_age_limit {
+    my $self = shift;
+    my $date = shift;
+
+    return (!$self -> {"maxage"} || $date >= $self -> {"maxage"});
 }
 
 1;
