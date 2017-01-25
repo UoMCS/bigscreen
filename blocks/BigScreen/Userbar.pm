@@ -23,6 +23,7 @@ package BigScreen::Userbar;
 
 use strict;
 use base qw(BigScreen);
+use experimental qw(smartmatch);
 use v5.12;
 
 
