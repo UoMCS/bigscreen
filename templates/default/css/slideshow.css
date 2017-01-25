@@ -29,63 +29,111 @@
 .orbit-slide.type0 {
     background: dodgerblue;
 }
+.orbit-slide.type0 .slide-title {
+    border-bottom-color: #cce6ff;
+}
 
 .orbit-slide.type1 {
     background: darkmagenta;
+}
+.orbit-slide.type1 .slide-title {
+    border-bottom-color: #ffccff;
 }
 
 .orbit-slide.type2 {
     background: rebeccapurple;
 }
+.orbit-slide.type2 .slide-title {
+    border-bottom-color: #e6d9f2;
+}
 
 .orbit-slide.type3 {
     background: darkgoldenrod;
+}
+.orbit-slide.type3 .slide-title {
+    border-bottom-color: #fcefcf;
 }
 
 .orbit-slide.type4 {
     background: lightseagreen;
 }
+.orbit-slide.type4 .slide-title {
+    border-bottom-color: #d4f7f6;
+}
 
 .orbit-slide.type5 {
     background: seagreen;
+}
+.orbit-slide.type5 .slide-title {
+    border-bottom-color: #d9f2e4;
 }
 
 .orbit-slide.type6 {
     background: slategray;
 }
+.orbit-slide.type6 .slide-title {
+    border-bottom-color: #e2e6e9;
+}
 
 .orbit-slide.type7 {
     background: steelblue;
+}
+.orbit-slide.type7 .slide-title {
+    border-bottom-color: #dae7f1;
 }
 
 .orbit-slide.type8 {
     background: sienna;
 }
+.orbit-slide.type8 .slide-title {
+    border-bottom-color: #f4e0d7;
+}
 
 .orbit-slide.type9 {
     background: purple;
+}
+.orbit-slide.type9 .slide-title {
+    border-bottom-color: #ffccff;
 }
 
 .orbit-slide.typeA {
     background: peru;
 }
+.orbit-slide.typeA .slide-title {
+    border-bottom-color: #f5e6d6;
+}
 
 .orbit-slide.typeB {
     background: midnightblue;
 }
+.orbit-slide.typeB .slide-title {
+    border-bottom-color: #d5d5f6;
+}
 
 .orbit-slide.typeC {
-    background: indigo;
+    background: #4b0082;
+}
+.orbit-slide.typeC .slide-title {
+    border-bottom-color: #eaccff;
 }
 
 .orbit-slide.typeD {
     background: forestgreen;
 }
+.orbit-slide.typeD .slide-title {
+    border-bottom-color: #d6f5d6;
+}
 
 .orbit-slide.typeE {
     background: darkviolet;
 }
+.orbit-slide.typeE .slide-title {
+    border-bottom-color: #f0ccff;
+}
 
 .orbit-slide.typeF {
     background: darkred;
+}
+.orbit-slide.typeF .slide-title {
+    border-bottom-color: #ffcccc;
 }
