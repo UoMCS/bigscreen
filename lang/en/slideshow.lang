@@ -1,3 +1,4 @@
-SLIDES_TITLE = Shideshow
+SLIDES_TITLE  = Slideshow
+SLIDES_POSTED = Posted:
 
 SLIDE_TWITTER_TITLE = From @%(account)s

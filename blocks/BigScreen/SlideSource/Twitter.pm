@@ -26,6 +26,7 @@ use Net::Twitter::Lite::WithAPIv1_1;
 use DateTime::Format::CLDR;
 use v5.12;
 
+
 # ============================================================================
 #  Constructor
 
@@ -89,7 +90,8 @@ sub generate_slides {
     my @slides = ();
     foreach my $status (@{$results -> {"result"}}) {
         # Stop when we exceed the age limit
-        last unless($self -> in_age_limit($self -> _twitter_to_datetime($status -> {"created_at"})));
+        my $timestamp = $self -> _twitter_to_datetime($status -> {"created_at"});
+        last unless($self -> in_age_limit($timestamp));
 
         my $text = "<p>".( $status -> {"retweeted_status"} -> {"text"} || $status -> {"text"} )."</p>";
 
@@ -117,6 +119,7 @@ sub generate_slides {
         push(@slides, $self -> {"template"} -> load_template("slideshow/slide.tem",
                                                              { "%(slide-title)s"  => "{L_SLIDE_TWITTER_TITLE}",
                                                                "%(account)s"      => $self -> {"account"},
+                                                               "%(posted)s"       => $self -> {"template"} -> format_time($timestamp -> epoch(), '%a, %d %b %Y %H:%M:%S'),
                                                                "%(byline)s"       => $byline,
                                                                "%(content)s"      => $content,
                                                                "%(type)s"         => $self -> determine_type($text),

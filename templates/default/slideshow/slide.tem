@@ -1,6 +1,7 @@
                             <li class="orbit-slide %(type)s">
                                 <div class="slide">
                                     <div class="slide-title">%(slide-title)s</div>
+                                    <div class="slide-posted">{L_SLIDES_POSTED} %(posted)s</div>
                                     <div class="slide-content">
 %(content)s
                                     </div>
