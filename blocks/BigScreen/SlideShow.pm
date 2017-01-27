@@ -95,19 +95,31 @@ sub _handle_default {
     # Handle buttons
     my $buttons = "";
     for(my $slide = 0; $slide < scalar(@slides); ++$slide) {
+        $slides[$slide] = $self -> {"template"} -> process_template($slides[$slide],
+                                                           { "%(active)s"   => $slide ? "" : "is-active",
+                                                             "%(slidenum)s" => $slide
+                                                           });
+
         $buttons .= $self -> {"template"} -> load_template("slideshow/button.tem",
                                                            { "%(active)s"   => $slide ? "" : "is-active",
                                                              "%(slidenum)s" => $slide
                                                            });
     }
 
+    my @options = ( "timerDelay: ".(($self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10) * 1000),
+        );
+
+
     return ("{L_SLIDES_TITLE}",
             $self -> {"template"} -> load_template("slideshow/content.tem",
-                                                   { "%(slides)s"  => join("", @slides),
-                                                     "%(buttons)s" => $buttons,
-                                                   }
-            ),
-            $self -> {"template"} -> load_template("slideshow/extrahead.tem")
+                                                   { "%(slides)s"      => join("", @slides),
+                                                     "%(buttons)s"     => $buttons,
+                                                     "%(options)s"     => join(";", @options),
+                                                     "%(orbit-delay)s" => $self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10
+                                                   }),
+            $self -> {"template"} -> load_template("slideshow/extrahead.tem"),
+            $self -> {"template"} -> load_template("slideshow/extrajs.tem",
+                                                   {"%(orbit-delay)s" => $self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10 })
            );
 }
 

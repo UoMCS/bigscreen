@@ -2,6 +2,18 @@ html {
     font-size: 18pt;
 }
 
+.stopwatch {
+    height: 3rem;
+    width: 3rem;
+}
+
+/* Add a margin to the bullet bar to balance the space taken by the
+ * stopwatch float on the right
+ */
+.orbit-bullets {
+    margin-left: 3rem;
+}
+
 .slide-content a {
     color: #fff !important;
     font-weight: bold;

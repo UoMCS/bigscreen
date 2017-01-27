@@ -1,0 +1,5 @@
+            var duration = %(orbit-delay)s;
+        </script>
+        <script src="{V_[templatepath]}3rdparty/TimeCircles/TimeCircles.js"></script>
+        <script src="{V_[jspath]}slideshow.js"></script>
+        <script>

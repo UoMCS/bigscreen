@@ -1,1 +1,2 @@
-        <link rel="stylesheet" href="{V_[csspath]}slideshow.css" />
+         <link rel="stylesheet" href="{V_[templatepath]}3rdparty/TimeCircles/TimeCircles.css" />
+         <link rel="stylesheet" href="{V_[csspath]}slideshow.css" />
