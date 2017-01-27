@@ -51,7 +51,8 @@ set_message(\&handle_errors);
 do {
     my $app = Webperl::Application -> new(appuser        => BigScreen::AppUser -> new(),
                                           system         => BigScreen::System -> new(),
-                                          block_selector => BigScreen::BlockSelector -> new())
+                                          block_selector => BigScreen::BlockSelector -> new(),
+                                          config         => "$scriptpath/config/site.cfg")
         or die "Unable to create application";
     $app -> run();
 }
