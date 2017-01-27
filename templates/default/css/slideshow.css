@@ -2,16 +2,15 @@ html {
     font-size: 18pt;
 }
 
-.stopwatch {
+.stopwatch, img.tellus {
     height: 3rem;
     width: 3rem;
 }
 
-/* Add a margin to the bullet bar to balance the space taken by the
- * stopwatch float on the right
- */
-.orbit-bullets {
-    margin-left: 3rem;
+div.tellus {
+    font-size: 0.6rem;
+    white-space: nowrap;
+    margin-top: 1em;
 }
 
 .slide-content a {
@@ -35,6 +34,8 @@ html {
 
 .orbit-slide .slide-posted {
     font-size: 0.8rem;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .orbit-slide .slide-byline img {
