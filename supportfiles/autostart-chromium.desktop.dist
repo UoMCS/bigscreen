@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/chromium-browser --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://URL.HERE
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=AutoChromium
+Name=AutoChromium
+Comment=RasPi autostart for bigscreen web app
