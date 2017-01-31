@@ -8,8 +8,10 @@ $(function() {
                                   total_duration: duration
                                 });
 
-    $('#slideshow').on('slidechange.zf.orbit', function(event, newslide) {
-        $(".stopwatch").TimeCircles().restart();
+    new Foundation.TimedOrbit($('#slideshow'), delays);
+    $('#slideshow').on('slidechange.zf.timedorbit', function(event, newslide, delay) {
+        $('#timer').data('timer', delay / 1000);
+        $('#timer').TimeCircles().restart();
 
         // if moving from last to first, reload the page
         if( newslide.data('slide') == 0) {

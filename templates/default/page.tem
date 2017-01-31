@@ -36,6 +36,7 @@
         <script src="{V_[templatepath]}3rdparty/foundation/js/vendor/jquery.js"></script>
         <script src="{V_[templatepath]}3rdparty/jquery-ui/jquery-ui.min.js"></script>
         <script src="{V_[templatepath]}3rdparty/foundation/js/vendor/foundation.min.js"></script>
+        <script src="{V_[jspath]}foundation.timedorbit.js"></script>
         <script src="{V_[jspath]}foundation.js"></script>
         <script>
 %(extrajs)s

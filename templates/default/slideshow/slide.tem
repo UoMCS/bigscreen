@@ -1,4 +1,4 @@
-                            <li class="orbit-slide %(type)s %(active)s" data-slide="%(slidenum)s">
+                            <li class="timedorbit-slide %(type)s %(active)s" data-slide="%(slidenum)s">
                                 <div class="slide">
                                     <div class="slide-title">%(slide-title)s</div>
                                     <div class="slide-posted">{L_SLIDES_POSTED} %(posted)s</div>

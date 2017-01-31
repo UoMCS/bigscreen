@@ -1,10 +1,10 @@
-                    <div id="slideshow" class="orbit column" role="region" aria-label="Big Screen Slides" data-orbit data-options="%(options)s" >
-                        <ul class="orbit-container" style="height: 800px">
+                    <div id="slideshow" class="timedorbit column" role="region" aria-label="Big Screen Slides" data-timedorbit data-options="%(options)s" >
+                        <ul class="timedorbit-container" style="height: 800px">
 %(slides)s
                         </ul>
                         <div class="float-left" ><img class="tellus float-left" src="{V_[templatepath]}/images/tellus_qr.png" /><div class="tellus">Want your message here?<br /><strong>Tell Us!</strong></div></div>
-                        <div class="float-right" ><div class="stopwatch" data-timer="%(orbit-delay)s"></div></div>
-                        <nav class="orbit-bullets">
+                        <div class="float-right" ><div id="timer" class="stopwatch" data-timer="%(orbit-delay)s"></div></div>
+                        <nav class="timedorbit-bullets">
 %(buttons)s
                         </nav>
                     </div>

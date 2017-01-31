@@ -106,20 +106,23 @@ sub _handle_default {
                                                            });
     }
 
-    my @options = ( "timerDelay: ".(($self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10) * 1000),
+    my @options = ( "minDelay: ".(($self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10) * 1000),
         );
 
 
     return ("{L_SLIDES_TITLE}",
             $self -> {"template"} -> load_template("slideshow/content.tem",
-                                                   { "%(slides)s"      => join("", @slides),
-                                                     "%(buttons)s"     => $buttons,
-                                                     "%(options)s"     => join(";", @options),
-                                                     "%(orbit-delay)s" => $self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10
+                                                   { "%(slides)s"        => join("", @slides),
+                                                     "%(buttons)s"       => $buttons,
+                                                     "%(options)s"       => join(";", @options),
+                                                     "%(orbit-delay)s"   => $self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10,
                                                    }),
             $self -> {"template"} -> load_template("slideshow/extrahead.tem"),
             $self -> {"template"} -> load_template("slideshow/extrajs.tem",
-                                                   {"%(orbit-delay)s" => $self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10 })
+                                                   {"%(orbit-maxdelay)s" => $self -> {"settings"} -> {"config"} -> {"Orbit:maxDelay"} // 10,
+                                                    "%(orbit-mindelayms)s" => ($self -> {"settings"} -> {"config"} -> {"Orbit:minDelay"} // 10) * 1000,
+                                                    "%(orbit-maxdelayms)s" => ($self -> {"settings"} -> {"config"} -> {"Orbit:maxDelay"} // 10) * 1000
+                                                   })
            );
 }
 
