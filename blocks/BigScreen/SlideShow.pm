@@ -119,9 +119,10 @@ sub _handle_default {
                                                    }),
             $self -> {"template"} -> load_template("slideshow/extrahead.tem"),
             $self -> {"template"} -> load_template("slideshow/extrajs.tem",
-                                                   {"%(orbit-maxdelay)s" => $self -> {"settings"} -> {"config"} -> {"Orbit:maxDelay"} // 10,
+                                                   {"%(orbit-maxdelay)s"   => $self -> {"settings"} -> {"config"} -> {"Orbit:maxDelay"} // 10,
                                                     "%(orbit-mindelayms)s" => ($self -> {"settings"} -> {"config"} -> {"Orbit:minDelay"} // 10) * 1000,
-                                                    "%(orbit-maxdelayms)s" => ($self -> {"settings"} -> {"config"} -> {"Orbit:maxDelay"} // 10) * 1000
+                                                    "%(orbit-maxdelayms)s" => ($self -> {"settings"} -> {"config"} -> {"Orbit:maxDelay"} // 10) * 1000,
+                                                    "%(orbit-loops)s"      => $self -> {"settings"} -> {"config"} -> {"Orbit:loops"} // 3,
                                                    })
            );
 }
