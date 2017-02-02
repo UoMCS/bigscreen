@@ -1,7 +1,7 @@
-            var duration = %(orbit-maxdelay)s;
             var delays   = { minDelay: %(orbit-mindelayms)s,
                              maxDelay: %(orbit-maxdelayms)s
                            };
+            var loops = %(orbit-loops)s;
         </script>
         <script src="{V_[templatepath]}3rdparty/TimeCircles/TimeCircles.js"></script>
         <script src="{V_[jspath]}slideshow.js"></script>

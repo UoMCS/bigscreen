@@ -1,4 +1,4 @@
-                    <div id="slideshow" class="timedorbit column" role="region" aria-label="Big Screen Slides" data-timedorbit data-options="%(options)s" >
+                    <div id="slideshow" class="timedorbit column" role="region" aria-label="Big Screen Slides" data-timedorbit >
                         <ul class="timedorbit-container" style="height: 800px">
 %(slides)s
                         </ul>
