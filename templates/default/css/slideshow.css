@@ -111,6 +111,10 @@ div.tellus {
     margin-bottom: 0.5rem;
 }
 
+.timedorbit-slide .slide-byline {
+    line-height: 1.2;
+}
+
 .timedorbit-slide .slide-byline img {
     margin-right: 0.25rem;
     border-radius: 0.3rem;
