@@ -399,9 +399,12 @@
                             $newSlide.css({'position': 'relative', 'display': 'block'})
                                 .attr('aria-live', 'polite');
 
-                            var content = $newSlide.find('.slide-content');
-                            delay = _this.options.minDelay + ( (_this.options.maxDelay - _this.options.minDelay) *
-                                                               ($(content).height() / _this.$wrapper.height()));
+                            delay = _this._calculateDelay($newSlide);
+
+                            if(_this.options.autoPlay && !_this.timer.isPaused){
+                                _this.timer.restart(delay);
+                            }
+
                             /**
                              * Triggers when the slide has finished animating in.
                              * @event TimedOrbit#slidechange
@@ -414,15 +417,13 @@
                         this.options[`animOutTo${dirOut}`],
                         function(){
                             $curSlide.removeAttr('aria-live');
-                            if(_this.options.autoPlay && !_this.timer.isPaused){
-                                _this.timer.restart(delay);
-                            }
                             //do stuff?
                         });
                 } else {
                     $curSlide.removeClass('is-active is-in').removeAttr('aria-live').hide();
                     $newSlide.addClass('is-active is-in').attr('aria-live', 'polite').show();
                     if (this.options.autoPlay && !this.timer.isPaused) {
+                        delay = _this._calculateDelay($newSlide);
                         this.timer.restart(delay);
                     }
                 }
@@ -449,6 +450,12 @@
         destroy() {
             this.$element.off('.zf.timedorbit').find('*').off('.zf.timedorbit').end().hide();
             Foundation.unregisterPlugin(this);
+        }
+
+        _calculateDelay($slide) {
+            var content = $slide.find('.slide');
+            return this.options.minDelay + ( (this.options.maxDelay - this.options.minDelay) *
+                                             ($(content).height() / $slide.height()));
         }
     }
 
