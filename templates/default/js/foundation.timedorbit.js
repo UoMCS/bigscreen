@@ -161,10 +161,15 @@
          */
         geoSync() {
             var _this = this;
+
+            var $newSlide = this.$slides.first();
+            var delay = _this._calculateDelay($newSlide);
+            _this.$element.trigger('slidechange.zf.timedorbit', [$newSlide, delay]);
+
             this.timer = new Foundation.MutableTimer(
                 this.$element,
                 {
-                    duration: this.options.minDelay,
+                    duration: delay,
                     infinite: false
                 },
                 function() {
@@ -273,6 +278,7 @@
                     //also need to handle enter/return and spacebar key presses
                         .on('click.zf.timedorbit touchend.zf.timedorbit', function(e){
 	                        e.preventDefault();
+                            _this.timer.start();
                             _this.changeSlide($(this).hasClass(_this.options.nextClass));
                         });
                 }
@@ -542,9 +548,9 @@
          * Allows the timing function to pause animation on hover.
          * @option
          * @type {boolean}
-         * @default true
+         * @default false
          */
-        pauseOnHover: true,
+        pauseOnHover: false,
         /**
          * Allows TimedOrbit to bind keyboard events to the slider, to animate frames with arrow keys
          * @option
