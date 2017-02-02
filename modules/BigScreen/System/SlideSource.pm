@@ -41,6 +41,7 @@ sub get_slide_sources {
 
     my $sources = $self -> {"dbh"} -> prepare("SELECT *
                                                FROM `".$self -> {"settings"} -> {"database"} -> {"slidesources"}."`
+                                               WHERE `enabled` = 1
                                                ORDER BY `last_checked`, `id`");
     $sources -> execute()
         or return $self -> self_error("Unable to fetch slide sources list: ".$self -> {"dbh"} -> errstr());
