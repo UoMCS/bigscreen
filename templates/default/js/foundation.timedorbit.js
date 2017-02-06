@@ -460,8 +460,12 @@
 
         _calculateDelay($slide) {
             var content = $slide.find('.slide');
+            var height  = $(content).height();
+            var slide   = $slide.height();
+
+            if(height > slide) { height = slide; }
             return this.options.minDelay + ( (this.options.maxDelay - this.options.minDelay) *
-                                             ($(content).height() / $slide.height()));
+                                             ( height / slide ));
         }
     }
 
