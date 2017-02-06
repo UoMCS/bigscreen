@@ -125,6 +125,10 @@ div.tellus {
     color: #fff;
 }
 
+.timedorbit-slide img.article {
+    max-width: 600px !important;
+}
+
 .timedorbit-slide.type0 {
     background: dodgerblue;
 }
