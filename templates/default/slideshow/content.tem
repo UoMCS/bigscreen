@@ -1,5 +1,5 @@
                     <div id="slideshow" class="timedorbit column" role="region" aria-label="Big Screen Slides" data-timedorbit >
-                        <ul class="timedorbit-container" style="height: 900px">
+                        <ul class="timedorbit-container" style="height: 850px">
 %(slides)s
                         </ul>
                         <div class="float-left" ><img class="tellus float-left" src="{V_[templatepath]}/images/tellus_qr.png" /><div class="tellus">Want your message here?<br /><strong>Tell Us!</strong></div></div>
