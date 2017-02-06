@@ -26,7 +26,6 @@ use Net::Twitter::Lite::WithAPIv1_1;
 use DateTime::Format::CLDR;
 use v5.12;
 
-
 # ============================================================================
 #  Constructor
 
@@ -85,7 +84,9 @@ sub generate_slides {
                                                          access_token_secret => $self -> {"token_secret"},
                                                          ssl                 => 1,
                                                          wrap_result         => 1);
-    my $results = eval { $twitter -> user_timeline({ count => 5 }); };
+
+    my $results = eval { $twitter -> user_timeline({ tweet_mode => "extended", # extended mode includes media in the results
+                                                     count => 10 }); };
 
     my @slides = ();
     foreach my $status (@{$results -> {"result"}}) {
@@ -93,7 +94,7 @@ sub generate_slides {
         my $timestamp = $self -> _twitter_to_datetime($status -> {"created_at"});
         last unless($self -> in_age_limit($timestamp));
 
-        my $text = "<p>".( $status -> {"retweeted_status"} -> {"text"} || $status -> {"text"} )."</p>";
+        my $text = "<p>".( $status -> {"retweeted_status"} -> {"full_text"} || $status -> {"full_text"} )."</p>";
 
         # Expand URLs...
         my $urls = $status-> {"retweeted_status"} -> {"entities"} -> {"urls"} || $status -> {"entities"} -> {"urls"};
@@ -114,7 +115,12 @@ sub generate_slides {
                                                                                           $status -> {"user"} -> {"screen_name"} ),
                                                             });
 
-        my $content = $text;
+
+        my $image      = $status -> {"entities"} -> {"media"} -> [0] -> {"media_url_https"};
+        my $image_mode = $image ? "slideshow/content-image.tem" : "slideshow/content-noimage.tem";
+        my $content = $self -> {"template"} -> load_template($image_mode,
+                                                             {"%(content)s" => $text,
+                                                              "%(url)s"     => $image });
 
         push(@slides, $self -> {"template"} -> load_template("slideshow/slide.tem",
                                                              { "%(slide-title)s"  => "{L_SLIDE_TWITTER_TITLE}",
