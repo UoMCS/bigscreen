@@ -73,7 +73,9 @@ html {
     .timedorbit-bullets button.is-active {
       background-color: #8a8a8a; }
 
-
+.footer {
+    font-size: 0.75rem;
+}
 
 .stopwatch, img.tellus {
     height: 3rem;

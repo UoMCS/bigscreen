@@ -2,3 +2,5 @@ SLIDES_TITLE  = Slideshow
 SLIDES_POSTED = Posted:
 
 SLIDE_TWITTER_TITLE = From @%(account)s
+
+SLIDE_FOOTER = Too Fast? Missed something? Go to https://xerxes.cs.manchester.ac.uk/bigscreen/ to find it again.

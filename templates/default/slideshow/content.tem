@@ -8,3 +8,5 @@
 %(buttons)s
                         </nav>
                     </div>
+                </div>
+                <div class="footer row column text-center">{L_SLIDE_FOOTER}</div>
