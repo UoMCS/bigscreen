@@ -27,15 +27,33 @@ use DateTime::Format::CLDR;
 use v5.12;
 
 
+## @method private $ _split_monday_mail($body)
+# Given a string of text containing a Monday Mail edition, split it into sections
+# suitable for embedding into slides.
+#
+# @param body A string containing an edition of the Monday Mail
+# @return A reference to an array of MM sections.
 sub _split_monday_mail {
     my $self = shift;
     my $body = shift;
 
-    my @parts = $body =~ m{<p>((?:<img[^>]+>)?\*.*?)</p>}gm;
-    s/\*// for @parts;
+    # First remove the preamble
+    $body =~ s/^.*?<div id="MMlinks"/<div id="MMlinks"/s;
+    $body =~ s|<div id="MMlinks".*?</div>\s*||s;
+
+    # And the footer
+    $body =~ s|\[ End of The Monday Mail.*?\]</div>||;
+
+    # Mark the start of each section so we can split on it
+    $body =~ s/(<p>(?:<img .*?>)?)\* /<!--sep-->$1/g;
+
+    # Note that this will get an empty string as the first element. To fix that,
+    # we could remove the initial <!--sep-->, but easier just to skip it really.
+    my @parts = split(/<!--sep-->/, $body);
 
     return \@parts;
 }
+
 
 ## @method private $ _newsagent_to_datetime($datestr)
 # Given a time string in rss time format, generate a DateTime object representing it.
@@ -92,6 +110,22 @@ sub generate_slides {
         my $bodyparts = $self -> _split_monday_mail($desc -> to_literal);
 
         foreach my $part (@{$bodyparts}) {
+            next unless($part); # initial slide may be empty
+
+            # Does this slide contain a paragraph containing just an image? If so, assume it
+            # is the article image
+            my ($img) = $part =~ m|<p[^>]*><img.*?src="([^"]+)"[^>]*></p>|;
+            if($img) {
+                # Remove the image from the text
+                $part =~ s|<p[^>]*><img.*?src="([^"]+)"[^>]*></p>||;
+
+                # And add it back again as a right-floated, size-limited image
+                $part = $self -> {"template"} -> load_template("slideshow/content-image.tem",
+                                                               { "%(content)s" => $part,
+                                                                 "%(url)s"     => $img,
+                                                               });
+            }
+
             # And now create the slide
             push(@slides, $self -> {"template"} -> load_template("slideshow/slide.tem",
                                                                  { "%(slide-title)s"  => $title -> to_literal,
@@ -100,7 +134,7 @@ sub generate_slides {
                                                                    "%(email)s"        => $email,
                                                                    "%(posted)s"       => $self -> {"template"} -> format_time($timestamp -> epoch(), '%a, %d %b %Y %H:%M:%S'),
                                                                    "%(slide-avatar)s" => $slide_avatar,
-                                                                   "%(content)s"      => "<p>".$part."</p>",
+                                                                   "%(content)s"      => $part,
                                                                    "%(type)s"         => $self -> determine_type($part),
                                                                  }));
         }
