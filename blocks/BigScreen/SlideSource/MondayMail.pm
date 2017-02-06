@@ -26,6 +26,8 @@ use Text::Sprintf::Named qw(named_sprintf);
 use DateTime::Format::CLDR;
 use v5.12;
 
+# ============================================================================
+#  Utility functions
 
 ## @method private $ _split_monday_mail($body)
 # Given a string of text containing a Monday Mail edition, split it into sections
@@ -77,6 +79,9 @@ sub _newsagent_to_datetime {
     return $datetime;
 }
 
+
+# ============================================================================
+#  Interface methods
 
 sub generate_slides {
     my $self = shift;
