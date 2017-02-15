@@ -63,10 +63,16 @@ sub _fatal_error {
     my $self  = shift;
     my $error = shift;
 
-    return ("{L_SLIDES_ERR_FATAL}", $self -> {"template"} -> load_template("error/page_error.tem", { "%(message)s" => $error }));
+    return ("{L_MANAGE_ERR_FATAL}", $self -> {"template"} -> load_template("error/page_error.tem", { "%(message)s" => $error }));
 }
 
 
+## @method private @ _handle_default()
+# Generate the default page content. This will generate the slideshow page
+# by loading each of the slide sources, collating the slide data they provide,
+# and returning a HTML page containing the slideshow.
+#
+# @return An array containing the page title, content, extrahead, and extrajs
 sub _handle_default {
     my $self   = shift;
     my @slides = ();
@@ -176,8 +182,5 @@ sub page_display {
         return $self -> _dispatch_ui();
     }
 }
-
-1;
-
 
 1;

@@ -1,5 +1,7 @@
-html {
-    font-size: 18pt;
+@media screen and (min-width: 1280px) {
+    html {
+        font-size: 18pt;
+    }
 }
 
 .timedorbit {
@@ -11,6 +13,25 @@ html {
   margin: 0;
   list-style: none;
   overflow: hidden; }
+
+@media screen and (min-height: 850px) {
+    .timedorbit-container {
+        height: 850px;
+    }
+}
+
+@media screen and (min-height: 700px) and (max-height: 849px) {
+    .timedorbit-container {
+        height: 650px;
+    }
+}
+
+@media screen and (max-height: 699px) {
+    .timedorbit-container {
+        height: 550px;
+    }
+}
+
 
 .timedorbit-slide {
   width: 100%; }

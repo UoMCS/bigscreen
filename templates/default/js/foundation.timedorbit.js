@@ -185,7 +185,9 @@
          */
         _prepareForTimedOrbit() {
             var _this = this;
-            this._setWrapperHeight();
+            if(this.options.setHeight) {
+                this._setWrapperHeight();
+            }
         }
 
         /**
@@ -603,7 +605,9 @@
          * @type {boolean}
          * @default true
          */
-        useMUI: true
+        useMUI: true,
+
+        setHeight: true
     };
 
     // Window exports

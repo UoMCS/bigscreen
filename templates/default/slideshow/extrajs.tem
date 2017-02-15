@@ -1,5 +1,6 @@
             var delays   = { minDelay: %(orbit-mindelayms)s,
-                             maxDelay: %(orbit-maxdelayms)s
+                             maxDelay: %(orbit-maxdelayms)s,
+                             setHeight: false
                            };
             var loops = %(orbit-loops)s;
         </script>
