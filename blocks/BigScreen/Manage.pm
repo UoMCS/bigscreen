@@ -140,7 +140,7 @@ sub _validate_source {
     $errors .= $self -> {"template"} -> load_template("error/error_item.tem", { "%(error)s" => $error })
         if($error);
 
-    ($args -> {"args"}, $error) = $self -> validate_string("args", { required   => 1,
+    ($args -> {"args"}, $error) = $self -> validate_string("args", { required   => 0,
                                                                      default    => "",
                                                                      nicename   => "{L_MANAGE_ARGS}" });
     $errors .= $self -> {"template"} -> load_template("error/error_item.tem", { "%(error)s" => $error })
