@@ -1,0 +1,21 @@
+                            <li class="timedorbit-slide typeF %(active)s" data-slide="%(slidenum)s">
+                                <div class="slide">
+                                    <div class="slide-title">Big Screen Carousel</div>
+                                    <div class="slide-content">
+                                        <div class="float-right callout small">
+                                            <div class="card">
+                                                 <img class="article" src="{V_[templatepath]}images/logo.jpg">
+                                                 <div class="card-section small">
+                                                     <p>Photo by Toby Howard.</p>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                        <p>Slides going too fast? Missed something you want to read in particular? The content of this news carousel is always available on the web at <a href="http://man.ac.uk/rUWo9Q">http://man.ac.uk/rUWo9Q</a> (https://xerxes.cs.manchester.ac.uk/bigscreen/)</p>
+                                        <p>If you have something you'd like to show on the big screen, Tell Us about it at <a href="http://man.ac.uk/48S1rJ">http://man.ac.uk/48S1rJ</a> (https://newsagent.cs.manchester.ac.uk/tellus/11)</p>
+                                    </div>
+                                    <div class="slide-byline clearfix">
+                                         <img src="https://gravatar.com/avatar/2e69a71276a73810d0b65c91a09e07d3?s=64&r=g&d=mm" width="64" height="64" class="float-left"/>
+                                         Chris<br/>christopher.page@manchester.ac.uk
+                                    </div>
+                                </div>
+                            </li>
