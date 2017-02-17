@@ -1,0 +1,18 @@
+            <div class="columns">
+                <nav aria-label="You are here:" role="navigation">
+                    <ul class="breadcrumbs">
+                        <li><a href="%(front-url)s">{L_MANAGE_MANAGE}</a></li>
+                        <li>{L_MANAGE_FEEDS}</li>
+                    </ul>
+                </nav>
+                <div id="feeds">
+%(feed-list)s
+                    <div class="clearfix">
+                        <a class="button group-field float-right" href="%(new-url)s">{L_MANAGE_NEW}</a>
+                    </div>
+                </div>
+            </div>
+            <div id="errormodal" class="small reveal" data-reveal>
+                 <div><img src="{V_[templatepath]}images/error.png" width="48" height="48" alt="error" /> <span id="errortext"></span></div>
+                 <div><button class="button alert float-right nomargin" data-close aria-label="Close">{L_MANAGE_OKAY}</button></div>
+            </div>

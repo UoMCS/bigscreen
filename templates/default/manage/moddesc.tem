@@ -1,0 +1,6 @@
+                <li class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title">%(name)s: %(description)s</a>
+                    <div class="accordion-content" data-tab-content>
+%(arginfo)s
+                    </div>
+                </li>

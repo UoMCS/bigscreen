@@ -1,0 +1,41 @@
+            <div class="columns">
+                <nav aria-label="You are here:" role="navigation">
+                    <ul class="breadcrumbs">
+                        <li><a href="%(front-url)s">{L_MANAGE_MANAGE}</a></li>
+                        <li>{L_MANAGE_NEW}</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+%(errors)s
+        <div class="row">
+            <div class="small-8 small-centered columns">
+                <form class="nomargin" method="POST" id="newsource">
+                    <h4 class="underscore">{L_MANAGE_NEW}</h4>
+                    <div class="row column">
+                        <label>{L_MANAGE_MODULE}
+                            <select name="module" id="module">
+%(modopts)s
+                            </select>
+                        </label>
+                    </div>
+                    <div class="row column">
+                        <label>{L_MANAGE_ARGS}
+                            <textarea id="args" data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" title="{L_MANAGE_ARGS_DESC}" name="args">%(args)s</textarea>
+                        </label>
+                    </div>
+                    <div class="row column">
+                        <label>{L_MANAGE_NOTES}
+                            <input id="notes" data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" title="{L_MANAGE_NOTES_DESC}" type="text" id="notes" name="notes" value="%(notes)s" />
+                        </label>
+                    </div>
+                    <div class="clearfix">
+                        <input type="submit" name="new" class="button float-right" value="{L_MANAGE_NEW}" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row column">
+            <ul class="accordion" data-accordion data-allow-all-closed="true">
+%(moddesc)s
+            </ul>

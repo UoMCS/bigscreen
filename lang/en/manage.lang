@@ -1,0 +1,23 @@
+MANAGE_FEEDS  = Manage Slide Sources
+MANAGE_MANAGE = Manage
+MANAGE_NEW    = Add new source
+MANAGE_EDIT   = Edit slide source
+MANAGE_OKAY   = Okay
+
+MANAGE_MODULE     = Source module
+MANAGE_ARGS       = Settings
+MANAGE_ARGS_DESC  = Configuration settings to pass to the source module. See the descriptions below for more information.
+MANAGE_NOTES      = Notes
+MANAGE_NOTES_DESC = Use this to attach meaningful information about the slide source - what it shows, when it is useful, etc
+
+MANAGE_NOARGS  = No arguments set
+MANAGE_NOFEEDS = No sources defined
+
+MANAGE_ENABLE  = Enable this source
+MANAGE_DISABLE = Disable this source
+MANAGE_DELETE  = Delete this source
+
+MANAGE_ERR_FATAL      = A fatal error has occurred
+MANAGE_ERR_PERMISSION = You do not have permission to manage Big Screen slide sources
+MANAGE_ERR_NEWERR     = Source addition failed
+MANAGE_ERR_EDITERR     = Source edit failed

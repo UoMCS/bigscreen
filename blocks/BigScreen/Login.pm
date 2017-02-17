@@ -1554,11 +1554,11 @@ sub _dispatch_ui {
     }
 
     # Done generating the page content, return the filled in page template
-    return $self -> generate_cadence_page(title     => $title,
-                                          content   => $body,
-                                          extrahead => $extrahead,
-                                          extrajs   => $extrajs,
-                                          doclink   => 'login');
+    return $self -> generate_bigscreen_page(title     => $title,
+                                            content   => $body,
+                                            extrahead => $extrahead,
+                                            extrajs   => $extrajs,
+                                            doclink   => 'login');
 }
 
 

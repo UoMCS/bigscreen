@@ -1,43 +1,40 @@
-/* nothing */
-
-.hidden {
-    display: none;
+.divider {
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 2px;
+    padding-bottom: 2px;
 }
 
-.selmenu {
-    margin-bottom: 1rem;
-    height: 2.6rem;
+.feedrow {
+    padding: 0.25rem;
 }
 
-ul.users {
-    margin: 0;
-    padding: 0;
+.feed-module {
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
-ul.users > li {
-    list-style: none;
-    cursor: pointer;
-    padding: 3px;
-    border-bottom: 1px solid #e7e7e7;
+.feed-notes {
+    font-size: 0.8rem;
+    padding-left: 1rem;
 }
 
-ul.users > li.selected {
-    background-color: rgba(255, 174, 0, 0.24);
+.feed-args {
+    font-size: 0.8rem;
+    color: #555;
 }
 
-ul.users li .user_name { color: black; font-weight: bold; word-wrap: break-word; line-height: 1.1; margin-bottom: 4px; }
-ul.users li .user_agree { font-size: 0.75rem; color: #777; margin-top: 4px; margin-left: 1rem; white-space: nowrap; }
-ul.users li .user_email { font-size: 0.75rem; color: #777; margin-top: 4px; margin-left: 1rem; white-space: nowrap; }
+.feedrow.on {
 
-ul.user_uom {
-    margin: 0px;
-    padding: 0px;
+}
+
+.feedrow.off {
+    background: #ffae00;
+}
+
+dd {
     margin-left: 1rem;
 }
 
-ul.user_uom li {
-    list-style: none;
-    display: inline-block;
-    color: #888;
-    font-size: 0.7rem;
+#args,#notes {
+    font-weight: normal;
 }

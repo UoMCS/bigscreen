@@ -1,0 +1,10 @@
+                    <div class="divider feedrow clearfix %(enabled)s" id="feed-%(id)s">
+                        <div class="float-left">
+                            <div class="feed-module">%(module)s</div>
+                            <div class="feed-notes">%(notes)s</div>
+                            <ul class="feed-args">
+%(arguments)s
+                            </ul>
+                        </div>
+                        <div class="float-right button-group nomargin"><a title="%(mode-title)s" class="button" href="%(mode-url)s"><i class="fa fa-toggle-%(toggle)s"></i></a>&nbsp;<a title="{L_MANAGE_EDIT}" class="button" href="%(edit-url)s"><i class="fa fa-pencil"></i></a>&nbsp;<a title="{L_MANAGE_DELETE}" class="button alert ap-delete" href="%(delete-url)s"><i class="fa fa-trash-o"></i></a></div>
+                    </div>
