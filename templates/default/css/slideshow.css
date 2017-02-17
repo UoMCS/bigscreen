@@ -21,14 +21,23 @@
 }
 
 @media screen and (min-height: 700px) and (max-height: 849px) {
+    html {
+        font-size: 18pt;
+    }
     .timedorbit-container {
-        height: 650px;
+        height: 720px;
+    }
+    .bigscreen {
+        display: none;
     }
 }
 
 @media screen and (max-height: 699px) {
     .timedorbit-container {
-        height: 550px;
+        height: 600px;
+    }
+    .bigscreen {
+        display: none;
     }
 }
 

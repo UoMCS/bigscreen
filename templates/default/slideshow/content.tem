@@ -2,11 +2,14 @@
                         <ul class="timedorbit-container">
 %(slides)s
                         </ul>
-                        <div class="float-left" ><img class="tellus float-left" src="{V_[templatepath]}/images/tellus_qr.png" /><div class="tellus">Want your message here?<br /><strong>Tell Us!</strong></div></div>
-                        <div class="float-right" ><div id="timer" class="stopwatch" data-timer="%(orbit-delay)s"></div></div>
-                        <nav class="timedorbit-bullets">
+                        <div class="float-left bigscreen" >
+                             <img class="tellus float-left" src="{V_[templatepath]}/images/tellus_qr.png" />
+                             <div class="tellus">Want your message here?<br /><strong>Tell Us!</strong></div>
+                        </div>
+                        <div class="float-right bigscreen" ><div id="timer" class="stopwatch" data-timer="%(orbit-delay)s"></div></div>
+                        <nav class="timedorbit-bullets bigscreen">
 %(buttons)s
                         </nav>
                     </div>
                 </div>
-                <div class="footer row column text-center">{L_SLIDE_FOOTER}</div>
+                <div class="footer row column text-center bigscreen">{L_SLIDE_FOOTER}</div>
