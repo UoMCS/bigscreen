@@ -271,3 +271,12 @@ div.tellus {
 .timedorbit-slide.typeF .slide-title {
     border-bottom-color: #ffcccc;
 }
+
+.card-section.small {
+    padding: 0.25rem;
+    font-size: 0.7rem;
+}
+
+.float-right.callout {
+    margin-left: 0.5rem;
+}
