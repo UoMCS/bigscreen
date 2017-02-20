@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/usr/bin/chromium-browser --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://URL.HERE
+Exec=~/startup-bigscreen.sh
 Hidden=false
 X-GNOME-Autostart-enabled=true
 Name[en_US]=AutoChromium
