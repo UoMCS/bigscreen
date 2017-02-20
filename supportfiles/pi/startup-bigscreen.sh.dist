@@ -5,4 +5,4 @@ rm -rf /home/pi/.config/chromium
 rm -rf /home/pi/.cache/chromium
 
 # And now start the browser itself
-/usr/bin/chromium-browser --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk http://URL.HERE
+/usr/bin/chromium-browser -no-first-run --noerrdialogs --disable-session-crashed-bubble --disable-infobars --kiosk https://URL.HERE
