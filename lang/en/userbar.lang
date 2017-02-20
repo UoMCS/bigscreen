@@ -13,5 +13,5 @@ SIDE_TITLE              = Big Screen
 SIDE_SIGN_IN            = Sign in
 SIDE_SIGN_UP            = Sign up
 SIDE_SIGN_OUT           = Sign out
-SIDE_MANAGE             = Manage Feeds
+SIDE_MANAGE             = Manage Slide Sources
 SIDE_FRONT              = Slideshow
