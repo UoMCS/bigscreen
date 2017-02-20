@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=~/startup-bigscreen.sh
+Exec=/home/pi/startup-bigscreen.sh
 Hidden=false
 X-GNOME-Autostart-enabled=true
 Name[en_US]=AutoChromium
