@@ -132,16 +132,20 @@ sub generate_slides {
             }
 
             # And now create the slide
-            push(@slides, $self -> {"template"} -> load_template("slideshow/slide.tem",
-                                                                 { "%(slide-title)s"  => $title -> to_literal,
-                                                                   "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
-                                                                   "%(author)s"       => $name,
-                                                                   "%(email)s"        => $email,
-                                                                   "%(posted)s"       => $self -> {"template"} -> format_time($timestamp -> epoch(), '%a, %d %b %Y %H:%M:%S'),
-                                                                   "%(slide-avatar)s" => $slide_avatar,
-                                                                   "%(content)s"      => $part,
-                                                                   "%(type)s"         => $self -> determine_type($part),
-                                                                 }));
+            my $slide = $self -> {"template"} -> load_template("slideshow/slide.tem",
+                                                               { "%(slide-title)s"  => $title -> to_literal,
+                                                                 "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
+                                                                 "%(author)s"       => $name,
+                                                                 "%(email)s"        => $email,
+                                                                 "%(posted)s"       => $self -> {"template"} -> format_time($timestamp -> epoch(), '%a, %d %b %Y %H:%M:%S'),
+                                                                 "%(slide-avatar)s" => $slide_avatar,
+                                                                 "%(content)s"      => $part,
+                                                                 "%(type)s"         => $self -> determine_type($part),
+                                                               });
+            push(@slides, { "slide"     => $slide,
+                            "duplicate" => $self -> {"duplicate"} // 1,
+                          }
+                )
         }
     }
 

@@ -52,6 +52,80 @@ sub new {
 
 
 # ============================================================================
+#  Support code
+
+## @method private $ _calculate_total($slides)
+# Work out how many slides there will be in total in the output, taking the
+# creation of duplicate slides into account.
+#
+# @param slides A reference to an array containing the source slides
+# @return The total number of slides that will be generated in the output.
+sub _calculate_total {
+    my $self   = shift;
+    my $slides = shift;
+
+    my $initial = scalar(@{$slides});
+    my $total   = $initial;
+    foreach my $slide (@{$slides}) {
+        if($slide -> {"duplicate"} > 1) {
+            $slide -> {"count"} = int($initial / $slide -> {"duplicate"});
+            $total += ($slide -> {"count"} - 1);
+        }
+    }
+
+    return $total;
+}
+
+
+## @method private $ _process_duplicates($slides)
+# Given an array of slides, some of which may need to be duplicated, generate
+# an array of slides with the duplicates placed within the list as needed.
+#
+# @param slides A reference to an array containing the source slides
+# @return A reference to an array containing the generated slide list.
+sub _process_duplicates {
+    my $self   = shift;
+    my $slides = shift;
+
+    # Pass 1 - work out the total lenght of the output
+    my $total = $self -> _calculate_total($slides);
+
+    my @output;
+
+    # Pass 2 - place duplicate candidates
+    foreach my $slide (@{$slides}) {
+        if($slide -> {"count"}) {
+            # Work out how many slides per instance
+            my $period = int($total / $slide -> {"count"});
+
+            my $offset = 0;
+            for(my $instance = 0; $instance < $slide -> {"count"}; ++$instance) {
+                $output[$offset + int(rand($period + 1))] = $slide -> {"slide"};
+                $offset += ($period + 1);
+            }
+
+            $slide -> {"slide"} = undef;
+        }
+    }
+
+    # Pass 3 - copy non-duplicated slides
+    my $outpos = 0;
+    foreach my $slide (@{$slides}) {
+        # Ignore slides that've already been placed in pass 2
+        next if(!$slide -> {"slide"});
+
+        # Skip any filled-in slides in the output
+        while($output[$outpos]) {
+            ++$outpos;
+        }
+
+        $output[$outpos++] = $slide -> {"slide"};
+    }
+
+    return \@output;
+}
+
+# ============================================================================
 #  Content generator
 
 ## @method private @ _fatal_error($error)
@@ -98,13 +172,16 @@ sub _handle_default {
     # Mix things up
     @slides = shuffle @slides;
 
+    # process duplication
+    my $final_slides = $self -> _process_duplicates(\@slides);
+
     # Handle buttons
     my $buttons = "";
-    for(my $slide = 0; $slide < scalar(@slides); ++$slide) {
-        $slides[$slide] = $self -> {"template"} -> process_template($slides[$slide],
-                                                           { "%(active)s"   => $slide ? "" : "is-active",
-                                                             "%(slidenum)s" => $slide
-                                                           });
+    for(my $slide = 0; $slide < scalar(@{$final_slides}); ++$slide) {
+        $final_slides -> [$slide] = $self -> {"template"} -> process_template($final_slides -> [$slide],
+                                                                              { "%(active)s"   => $slide ? "" : "is-active",
+                                                                                "%(slidenum)s" => $slide
+                                                                              });
 
         $buttons .= $self -> {"template"} -> load_template("slideshow/button.tem",
                                                            { "%(active)s"   => $slide ? "" : "is-active",
@@ -118,7 +195,7 @@ sub _handle_default {
 
     return ("{L_SLIDES_TITLE}",
             $self -> {"template"} -> load_template("slideshow/content.tem",
-                                                   { "%(slides)s"        => join("", @slides),
+                                                   { "%(slides)s"        => join("", @{$final_slides}),
                                                      "%(buttons)s"       => $buttons,
                                                      "%(options)s"       => join(";", @options),
                                                      "%(orbit-delay)s"   => $self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10,

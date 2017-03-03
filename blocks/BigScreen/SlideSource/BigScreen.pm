@@ -50,7 +50,10 @@ sub new {
 sub generate_slides {
     my $self = shift;
 
-    return [ $self -> {"template"} -> load_template("slideshow/bigscreen-slide.tem") ];
+    return [ { "slide"     => $self -> {"template"} -> load_template("slideshow/bigscreen-slide.tem"),
+               "duplicate" => 1
+             }
+           ];
 }
 
 

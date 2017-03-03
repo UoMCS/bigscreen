@@ -122,16 +122,20 @@ sub generate_slides {
         my ($email, $name) = $author -> to_literal =~ /^(.*?)\s*\(([^)]+)\)$/;
 
         # And now create the slide
-        push(@slides, $self -> {"template"} -> load_template("slideshow/slide.tem",
-                                                             { "%(slide-title)s"  => $title -> to_literal,
-                                                               "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
-                                                               "%(author)s"       => $name,
-                                                               "%(email)s"        => $email,
-                                                               "%(posted)s"       => $self -> {"template"} -> format_time($timestamp -> epoch(), '%a, %d %b %Y %H:%M:%S'),
-                                                               "%(slide-avatar)s" => $slide_avatar,
-                                                               "%(content)s"      => $slide_content,
-                                                               "%(type)s"         => $self -> determine_type($slide_content),
-                                                             }));
+        my $slide = $self -> {"template"} -> load_template("slideshow/slide.tem",
+                                                           { "%(slide-title)s"  => $title -> to_literal,
+                                                             "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
+                                                             "%(author)s"       => $name,
+                                                             "%(email)s"        => $email,
+                                                             "%(posted)s"       => $self -> {"template"} -> format_time($timestamp -> epoch(), '%a, %d %b %Y %H:%M:%S'),
+                                                             "%(slide-avatar)s" => $slide_avatar,
+                                                             "%(content)s"      => $slide_content,
+                                                             "%(type)s"         => $self -> determine_type($slide_content),
+                                                           });
+        push(@slides, { "slide"     => $slide,
+                        "duplicate" => $self -> {"duplicate"} // 1,
+                      }
+            );
     }
 
     return \@slides;

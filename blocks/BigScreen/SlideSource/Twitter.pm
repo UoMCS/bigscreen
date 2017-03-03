@@ -122,14 +122,18 @@ sub generate_slides {
                                                              {"%(content)s" => $text,
                                                               "%(url)s"     => $image });
 
-        push(@slides, $self -> {"template"} -> load_template("slideshow/slide.tem",
+        my $slide = $self -> {"template"} -> load_template("slideshow/slide.tem",
                                                              { "%(slide-title)s"  => "{L_SLIDE_TWITTER_TITLE}",
                                                                "%(account)s"      => $self -> {"account"},
                                                                "%(posted)s"       => $self -> {"template"} -> format_time($timestamp -> epoch(), '%a, %d %b %Y %H:%M:%S'),
                                                                "%(byline)s"       => $byline,
                                                                "%(content)s"      => $content,
                                                                "%(type)s"         => $self -> determine_type($text),
-                                                             }));
+                                                             });
+        push(@slides, { "slide"     => $slide,
+                        "duplicate" => $self -> {"duplicate"} // 1,
+                      }
+            );
     }
 
     return \@slides;

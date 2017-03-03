@@ -49,6 +49,7 @@ sub new {
     my $invocant = shift;
     my $class    = ref($invocant) || $invocant;
     my $self     = $class -> SUPER::new(gravatar_url => "%(base)s?s=%(size)s&r=g&d=mm",
+                                        duplicate    => 1,
                                         @_)
         or return undef;
 
