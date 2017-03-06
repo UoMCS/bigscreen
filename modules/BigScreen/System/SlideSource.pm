@@ -145,7 +145,7 @@ sub get_slide_source {
         or return $self -> self_error("Unable to fetch slide source: ".$self -> {"dbh"} -> errstr());
 
     return $source -> fetchrow_hashref()
-        or $self -> self_error("Request for unknown slide source $sourceid");
+       || $self -> self_error("Request for unknown slide source $sourceid");
 }
 
 
