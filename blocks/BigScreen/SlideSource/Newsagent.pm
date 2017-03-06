@@ -82,6 +82,31 @@ sub _newsagent_to_datetime {
 }
 
 
+## @method private $ _image_only($body, $item)
+# Attempt to determine whether the specified slide is an 'image only' slide, and
+# if so generate an appropriate body to show it full-screen.
+#
+# @param body The HTML for the slide body
+# @param item The XML::LibXML::Node object representing the slide source data
+# @return The body to use for the image-only slide if this is one, undef otherwise.
+sub _image_only {
+    my $self = shift;
+    my $body = shift;
+    my $item = shift;
+
+    my $nohtml = $self -> {"template"} -> html_strip($body);
+    if($nohtml =~ /^\s*image only$/im) {
+        my ($image) = $item -> findnodes('(./newsagent:images/newsagent:image[@type=\'tactus\'])[1]');
+
+        return $self -> {"template"} -> load_template("slideshow/content-imageonly.tem",
+                                                      { "%(url)s" => $image -> getAttribute('src') })
+            if($image);
+    }
+
+    return undef;
+}
+
+
 # ============================================================================
 #  Interface methods
 
@@ -113,11 +138,19 @@ sub generate_slides {
                                                                                                 size => 64 }),
                                                                   });
 
-        # And build the content
-        my $image_mode = $image ? "slideshow/content-image.tem" : "slideshow/content-noimage.tem";
-        my $slide_content = $self -> {"template"} -> load_template($image_mode,
-                                                                   {"%(content)s" => $self -> _strip_summary($desc -> to_literal),
-                                                                    "%(url)s"     => $image ? $image -> getAttribute('src') : undef });
+        my $slide_content;
+
+        # Is this an image-only slide?
+        my $imgbody = $self -> _image_only($desc -> to_literal, $item);
+        if($imgbody) {
+            $slide_content = $self -> {"template"} -> load_template("slideshow/content-noimage.tem",
+                                                                    {"%(content)s" => $imgbody });
+        } else {
+            my $image_mode = $image ? "slideshow/content-image.tem" : "slideshow/content-noimage.tem";
+            $slide_content = $self -> {"template"} -> load_template($image_mode,
+                                                                    {"%(content)s" => $self -> _strip_summary($desc -> to_literal),
+                                                                     "%(url)s"     => $image ? $image -> getAttribute('src') : undef });
+        }
 
         my ($email, $name) = $author -> to_literal =~ /^(.*?)\s*\(([^)]+)\)$/;
 
