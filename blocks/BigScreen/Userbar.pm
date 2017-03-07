@@ -70,6 +70,10 @@ sub block_display {
                                                          fullurl  => 1,
                                                          pathinfo => [],
                                                          params   => {}),
+                 "%(url-devices)s" => $self -> build_url(block    => "devices",
+                                                         fullurl  => 1,
+                                                         pathinfo => [],
+                                                         params   => {}),
     };
 
     my ($userprofile, $sidemenu);
@@ -90,7 +94,7 @@ sub block_display {
 
         # If the user has permission to manage, enable the option
         $controls = $self -> {"template"} -> load_template("sidemenu/controls.tem")
-            if($self -> check_permission("agreement.manage"));
+            if($self -> check_permission("manage"));
 
         $sidemenu = $self -> {"template"} -> load_template("sidemenu/signedin.tem",
                                                            { "%(realname)s" => $user -> {"fullname"},

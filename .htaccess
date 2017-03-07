@@ -13,7 +13,7 @@ RewriteEngine On
 # RewriteBase /subdir/
 RewriteBase /bigscreen
 
-RewriteCond %{REQUEST_URI} !^/bigscreen/(templates|media|docs|ckeditor|images|data|index.cgi)
+RewriteCond %{REQUEST_URI} !^/bigscreen/(templates|media|docs|ckeditor|images|data|devices|index.cgi)
 RewriteRule (.*) index.cgi/$1 [PT,L]
 
 # Compress text, html, javascript, css, xml:

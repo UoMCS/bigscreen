@@ -1,1 +1,2 @@
                     <li><a href="%(url-manage)s">{L_SIDE_MANAGE}</a></li>
+                    <li><a href="%(url-devices)s">{L_SIDE_DEVICES}</a></li>

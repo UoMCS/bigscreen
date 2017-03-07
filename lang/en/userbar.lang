@@ -14,4 +14,5 @@ SIDE_SIGN_IN            = Sign in
 SIDE_SIGN_UP            = Sign up
 SIDE_SIGN_OUT           = Sign out
 SIDE_MANAGE             = Manage Slide Sources
+SIDE_DEVICES            = Manage Devices
 SIDE_FRONT              = Slideshow
