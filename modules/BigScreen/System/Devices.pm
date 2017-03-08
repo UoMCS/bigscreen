@@ -43,7 +43,7 @@ sub new {
     my $self     = $class -> SUPER::new(working   => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'echo Working'",
                                         running   => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'ps -ef | grep /bigscreen/ | grep -v grep'",
                                         screencap => "/usr/bin/ssh %(user)s\@%(ipaddr)s '%(cmd)s' > %(outfile)s",
-                                        thumb     => "/usr/bin/convert %(source)s -resize 320x210 %(dest)s",
+                                        thumb     => "/usr/bin/convert %(source)s -resize 240x180 %(dest)s",
                                         pishot    => "/usr/bin/raspi2png -c 8 -s",
                                         @_)
         or return undef;
@@ -184,7 +184,7 @@ sub _check_running {
                                                          "user"   => $username });
     my $result = `$checkcmd`;
 
-    my ($browser, $url) = $result =~ m|/(chromium-browser).*?--kiosk (https://.*?bigscreen)|;
+    my ($browser, $url) = $result =~ m|(chromium-browser).*?--kiosk (https://.*?bigscreen)|;
 
     return (defined($browser) && defined($url));
 }
@@ -201,7 +201,7 @@ sub _fetch_screenshot {
     my $self   = shift;
     my $device = shift;
 
-    my $outpath   = path_join($self -> {"settings"} -> {"config"} -> {"Devices:basedir"}, $device -> {"shortname"});
+    my $outpath   = path_join($self -> {"settings"} -> {"config"} -> {"Devices:basedir"}, $device -> {"name"});
     eval { make_path($outpath); };
     return $self -> self_error("Unable to create image store directory: $@")
         if($@);
