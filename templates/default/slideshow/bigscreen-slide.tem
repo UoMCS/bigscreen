@@ -2,14 +2,7 @@
                                 <div class="slide">
                                     <div class="slide-title">Big Screen Carousel</div>
                                     <div class="slide-content">
-                                        <div class="float-right callout small">
-                                            <div class="card">
-                                                 <img class="article" src="{V_[templatepath]}images/logo.jpg">
-                                                 <div class="card-section small">
-                                                     <p>Photo by Toby Howard.</p>
-                                                 </div>
-                                            </div>
-                                        </div>
+                                        <img class="float-right callout small article" src="{V_[templatepath]}images/logo.jpg" />
                                         <p>Slides going too fast? Missed something you want to read in particular? The content of this news carousel is always available on the web at <a href="http://man.ac.uk/rUWo9Q">http://man.ac.uk/rUWo9Q</a> (https://xerxes.cs.manchester.ac.uk/bigscreen/)</p>
                                         <p>If you have something you'd like to show on the big screen, Tell Us about it at <a href="http://man.ac.uk/48S1rJ">http://man.ac.uk/48S1rJ</a> (https://newsagent.cs.manchester.ac.uk/tellus/11)</p>
                                     </div>
