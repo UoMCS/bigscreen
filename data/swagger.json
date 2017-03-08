@@ -1,0 +1,151 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Big Screen API",
+        "description": "REST Interface to Big Screen functions",
+        "version": "1.0.0"
+    },
+    "host": "azad.cs.man.ac.uk",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/bigscreen/rest/api",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/token": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Request API Token",
+                "description": "Request an API token to use when issuing queries to the REST API. When calling the API programmatically, include this token in the 'Private-Token' request header field with each request made. Note that each call to this endpoint will generate a new API token, invalidating any token previously associated with your account.\n\n**Required capabilities**: api.use\n",
+                "responses": {
+                    "200": {
+                        "description": "An API Token",
+                        "schema": {
+                            "$ref": "#/definitions/Token"
+                        }
+                    },
+                    "403": {
+                        "description": "Permission error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/devices": {
+            "get": {
+                "tags": [
+                    "devices"
+                ],
+                "summary": "Fetch the information for known display devices.",
+                "description": "Request a list of currently known devices and their status.\n\n**Required capabilities**: api.use\n",
+                "responses": {
+                    "200": {
+                        "description": "A list of devices",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Device"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Token": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "description": "Unique identifier to pass in the Private-Token header."
+                }
+            }
+        },
+        "Device": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "The ID of the device"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The short name of the device"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The human-readable name of the device"
+                },
+                "status": {
+                    "type": "object",
+                    "description": "The status information for the device",
+                    "properties": {
+                        "alive": {
+                            "type": "boolean",
+                            "description": "Is the device responding to pings?"
+                        },
+                        "working": {
+                            "type": "boolean",
+                            "description": "Is the device in a state where the OS is working?"
+                        },
+                        "running": {
+                            "type": "boolean",
+                            "description": "Is the web browser up and showing the display?"
+                        },
+                        "screenshot": {
+                            "type": "object",
+                            "properties": {
+                                "thumb": {
+                                    "type": "string",
+                                    "description": "The URL of the thumbnail screenshot"
+                                },
+                                "full": {
+                                    "type": "string",
+                                    "description": "The URL of the full-size screenshot"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "description": "A short identifying code for the error type"
+                },
+                "message": {
+                    "type": "string",
+                    "description": "A longer message explaining the cause of the error"
+                }
+            }
+        }
+    }
+}
