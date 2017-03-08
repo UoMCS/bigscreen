@@ -1,1 +1,1 @@
-<img class="float-right callout small article" src="%(url)s" /> %(content)s
+<img class="callout small article autofloat float-right" src="%(url)s" /> %(content)s
