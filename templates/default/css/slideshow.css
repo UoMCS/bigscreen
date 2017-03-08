@@ -280,3 +280,6 @@ div.tellus {
 .float-right.callout {
     margin-left: 0.5rem;
 }
+.float-left.callout {
+    margin-right: 0.5rem;
+}
