@@ -18,6 +18,9 @@
     .timedorbit-container {
         height: 850px;
     }
+    .timedorbit-slide .slide-content img {
+        max-height: 640px;
+    }
 }
 
 @media screen and (min-height: 700px) and (max-height: 849px) {
@@ -26,6 +29,9 @@
     }
     .timedorbit-container {
         height: 720px;
+    }
+    .timedorbit-slide .slide-content img {
+        max-height: 510px;
     }
     .bigscreen {
         display: none;
