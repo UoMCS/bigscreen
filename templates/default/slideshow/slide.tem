@@ -1,4 +1,4 @@
-                            <li class="timedorbit-slide %(type)s %(active)s" data-slide="%(slidenum)s">
+                            <li class="timedorbit-slide %(type)s %(active)s" data-slide="%(slidenum)s" style="%(style)s">
                                 <div class="slide">
                                     <div class="slide-title">%(slide-title)s</div>
                                     <div class="slide-posted"><i class="fa fa-newspaper-o"></i> {L_SLIDES_POSTED} %(posted)s</div>

@@ -1,4 +1,4 @@
-                            <li class="timedorbit-slide typeF %(active)s" data-slide="%(slidenum)s">
+                            <li class="timedorbit-slide typeF %(active)s" data-slide="%(slidenum)s" style="%(style)s">
                                 <div class="slide">
                                     <div class="slide-title">Big Screen Carousel</div>
                                     <div class="slide-content">
