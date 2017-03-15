@@ -160,7 +160,7 @@ sub generate_slides {
                                                              "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
                                                              "%(author)s"       => $name,
                                                              "%(email)s"        => $email,
-                                                             "%(posted)s"       => $self -> {"template"} -> format_time($timestamp -> epoch(), '%a, %d %b %Y %H:%M:%S'),
+                                                             "%(posted)s"       => $timestamp -> strftime($self -> {"timefmt"}),
                                                              "%(slide-avatar)s" => $slide_avatar,
                                                              "%(content)s"      => $slide_content,
                                                              "%(type)s"         => $self -> determine_type($slide_content),
