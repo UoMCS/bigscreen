@@ -100,7 +100,14 @@ sub _process_duplicates {
 
             my $offset = 0;
             for(my $instance = 0; $instance < $slide -> {"count"}; ++$instance) {
-                $output[$offset + int(rand($period + 1))] = $slide -> {"slide"};
+                my $pos;
+
+                # Look for an unoccupied slide in the allowed range
+                do {
+                    $pos = $offset + int(rand($period + 1));
+                } while($output[$pos]);
+
+                $output[$pos] = $slide -> {"slide"};
                 $offset += ($period + 1);
             }
 
@@ -174,20 +181,31 @@ sub _handle_default {
     @slides = shuffle @slides;
 
     # process duplication
-    my $final_slides = $self -> _process_duplicates(\@slides);
+    my $dupslides = $self -> _process_duplicates(\@slides);
 
     # Handle buttons
     my $buttons = "";
-    for(my $slide = 0; $slide < scalar(@{$final_slides}); ++$slide) {
-        $final_slides -> [$slide] = $self -> {"template"} -> process_template($final_slides -> [$slide],
-                                                                              { "%(active)s"   => $slide ? "" : "is-active",
-                                                                                "%(slidenum)s" => $slide
-                                                                              });
+    my $slide = 0;
+    my @outslides;
+    foreach my $setslide (@{$dupslides}) {
+
+        # This should not happen, but detect and avoid empty slides
+        if(!$setslide) {
+            print STDERR "Slide $slide is empty!!!\n";
+            next;
+        }
+
+        push(@outslides, $self -> {"template"} -> process_template($setslide,
+                                                                   { "%(active)s"   => $slide ? "" : "is-active",
+                                                                     "%(style)s"    => $slide ? "display: none" : "",
+                                                                     "%(slidenum)s" => $slide
+                                                                   }));
 
         $buttons .= $self -> {"template"} -> load_template("slideshow/button.tem",
                                                            { "%(active)s"   => $slide ? "" : "is-active",
                                                              "%(slidenum)s" => $slide
                                                            });
+             ++$slide;
     }
 
     my @options = ( "minDelay: ".(($self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10) * 1000),
@@ -196,7 +214,7 @@ sub _handle_default {
 
     return ("{L_SLIDES_TITLE}",
             $self -> {"template"} -> load_template("slideshow/content.tem",
-                                                   { "%(slides)s"        => join("", @{$final_slides}),
+                                                   { "%(slides)s"        => join("", @outslides),
                                                      "%(buttons)s"       => $buttons,
                                                      "%(options)s"       => join(";", @options),
                                                      "%(orbit-delay)s"   => $self -> {"settings"} -> {"config"} -> {"Orbit:delay"} // 10,
