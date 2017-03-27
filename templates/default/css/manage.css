@@ -38,3 +38,16 @@ dd {
 #args,#notes {
     font-weight: normal;
 }
+
+.device-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.device-img {
+    margin-right: 0.5rem;
+}
+
+.label {
+    padding: 0.5rem 1rem;
+}

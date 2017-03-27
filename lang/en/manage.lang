@@ -21,3 +21,18 @@ MANAGE_ERR_FATAL      = A fatal error has occurred
 MANAGE_ERR_PERMISSION = You do not have permission to manage Big Screen slide sources
 MANAGE_ERR_NEWERR     = Source addition failed
 MANAGE_ERR_EDITERR     = Source edit failed
+
+MANAGE_DEVICES     = Manage Display Devices
+MANAGE_DEV_NEW     = Add a device
+MANAGE_DEV_ALIVE   = Powered
+MANAGE_DEV_WORKING = OS Working
+MANAGE_DEV_RUNNING = Browser running
+MANAGE_DEV_YES     = Yes
+MANAGE_DEV_NO      = No
+
+MANAGE_DEV_ALIVE_YES   = <i class="fa fa-power-off"></i> Powered
+MANAGE_DEV_ALIVE_NO    = <i class="fa fa-warning"></i> Not Powered
+MANAGE_DEV_WORKING_YES = <i class="fa fa-linux"></i> OS Working
+MANAGE_DEV_WORKING_NO  = <i class="fa fa-warning"></i> OS Offline
+MANAGE_DEV_RUNNING_YES = <i class="fa fa-tv"></i> Browser running
+MANAGE_DEV_RUNNING_NO  = <i class="fa fa-warning"></i> No Browser

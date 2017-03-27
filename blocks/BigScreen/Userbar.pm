@@ -70,7 +70,7 @@ sub block_display {
                                                          fullurl  => 1,
                                                          pathinfo => [],
                                                          params   => {}),
-                 "%(url-devices)s" => $self -> build_url(block    => "devices",
+                 "%(url-devices)s" => $self -> build_url(block    => "devmng",
                                                          fullurl  => 1,
                                                          pathinfo => [],
                                                          params   => {}),
