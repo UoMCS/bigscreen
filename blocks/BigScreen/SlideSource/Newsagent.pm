@@ -72,11 +72,12 @@ sub _newsagent_to_datetime {
                                              time_zone => 'Europe/London');
 
     my $datetime = eval { $parser -> parse_datetime($datestr); };
-    if($@) {
+    if($@ || !$datetime) {
         print STDERR "Failed to parse datetime from '$datestr'";
         $self -> log("error", "Failed to parse datetime from '$datestr'");
         return DateTime -> now();
     }
+    print STDERR "Returning $datetime\n";
 
     return $datetime;
 }
