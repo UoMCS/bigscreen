@@ -26,6 +26,7 @@ use Webperl::Utils qw(path_join);
 use JSON;
 use DateTime;
 use v5.12;
+use Data::Dumper;
 
 # ============================================================================
 #  Constructor
@@ -90,7 +91,8 @@ sub _build_token_response {
 #
 # @return A reference to a hash containing the API response data.
 sub _build_devices_response {
-    my $self = shift;
+    my $self    = shift;
+    my $devname = shift;
 
     my $devices = $self -> {"module"} -> load_module("BigScreen::System::Devices")
         or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $self -> {"module"} -> errstr()}));
@@ -100,11 +102,12 @@ sub _build_devices_response {
 
     my @response;
     foreach my $device (@{$devlist}) {
+        next if($devname && $device -> {"name"} ne $devname);
+
         my $status = $devices -> get_device_status($device -> {"id"})
             or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
 
         # Work out the screenshot URLs
-        my ($fullurl, $thumburl);
         if($status -> {"screen"}) {
             $status -> {"screen"} = {
                 "full"  => path_join($self -> {"settings"} -> {"config"} -> {"Devices:webdir"}, $device -> {"name"}, "full.png"),
@@ -120,7 +123,13 @@ sub _build_devices_response {
         push(@response, { "id"          => $device -> {"id"},
                           "name"        => $device -> {"name"},
                           "description" => $device -> {"description"},
-                          "status"      => $status });
+                          "status"      => $status,
+                          "statusstr"   => {
+                              "alive"   => $self -> {"template"} -> replace_langvar($status -> {"alive"}   ? "MANAGE_DEV_ALIVE_YES"   : "MANAGE_DEV_ALIVE_NO"),
+                              "running" => $self -> {"template"} -> replace_langvar($status -> {"running"} ? "MANAGE_DEV_RUNNING_YES" : "MANAGE_DEV_RUNNING_NO"),
+                              "working" => $self -> {"template"} -> replace_langvar($status -> {"working"} ? "MANAGE_DEV_WORKING_YES" : "MANAGE_DEV_WORKING_NO"),
+                          }
+             });
     }
 
     return \@response;
@@ -150,10 +159,12 @@ sub page_display {
                                                             "You do not have permission to use the API"))
             unless($self -> check_permission('api.use'));
 
+        my @pathinfo = $self -> {"cgi"} -> multi_param('api');
+
         # API call - dispatch to appropriate handler.
         given($apiop) {
             when("token")   { $self -> api_response($self -> _build_token_response());   }
-            when("devices") { $self -> api_response($self -> _build_devices_response()); }
+            when("devices") { $self -> api_response($self -> _build_devices_response($pathinfo[2])); }
 
             when("") { return $self -> _show_api_docs(); }
 
