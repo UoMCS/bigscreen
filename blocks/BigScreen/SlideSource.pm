@@ -50,7 +50,7 @@ sub new {
     my $class    = ref($invocant) || $invocant;
     my $self     = $class -> SUPER::new(gravatar_url => "%(base)s?s=%(size)s&r=g&d=mm",
                                         duplicate    => 1,
-                                        timefmt      => "%a, %d %b %Y %H:%M:%S",
+                                        timefmt      => "%a, %d %b %Y %H:%M:%S %Z",
                                         @_)
         or return undef;
 
