@@ -55,7 +55,7 @@ sub new {
         or return undef;
 
     # convert the maxage string to something useful
-    $self -> {"maxage"} = DateTime -> now(time_zone => 'Europe/London')
+    $self -> {"maxage"} = DateTime -> now(time_zone => $self -> {"settings"} -> {"config"} -> {"time_zone"})
                                    -> subtract(seconds => ($self -> {"maxage"} * 86400))
         if($self -> {"maxage"});
 

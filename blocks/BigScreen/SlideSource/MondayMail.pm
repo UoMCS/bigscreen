@@ -70,13 +70,13 @@ sub _newsagent_to_datetime {
     $datestr =~ s/([-+]\d+)/GMT$1/;
 
     my $parser = DateTime::Format::CLDR->new(pattern   => 'EEE, dd MMM yyyy HH:mm:ss ZZZZ',
-                                             time_zone => 'Europe/London');
+                                             time_zone => $self -> {"settings"} -> {"config"} -> {"time_zone"});
 
     my $datetime = eval { $parser -> parse_datetime($datestr); };
     if($@ || !$datetime) {
         print STDERR "Failed to parse datetime from '$datestr': ".$parser -> errmsg();
         $self -> log("error", "Failed to parse datetime from '$datestr': ".$parser -> errmsg());
-        return DateTime -> now();
+        return DateTime -> now(time_zone => $self -> {"settings"} -> {"config"} -> {"time_zone"});
     }
 
     return $datetime;
