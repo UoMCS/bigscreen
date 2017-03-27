@@ -66,7 +66,7 @@ sub _newsagent_to_datetime {
     my $self    = shift;
     my $datestr = shift;
 
-    my $parser = DateTime::Format::CLDR->new(pattern   => 'EEE, dd MMM yyyy HH:mm:ss Z',
+    my $parser = DateTime::Format::CLDR->new(pattern   => 'EEE, dd MMM yyyy HH:mm:ss Z{1,3}',
                                              time_zone => 'Europe/London');
 
     my $datetime = eval { $parser -> parse_datetime($datestr); };
