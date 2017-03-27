@@ -1,0 +1,15 @@
+                    <div class="divider devicerow clearfix" id="device-%(id)s">
+                        <h4 class="device-name">%(description)s</h4>
+                        <div class="float-left">
+                            <img class="callout small device-img float-left" src="%(small-img)s" />
+                            <span class="alive label %(alive-color)s">%(alive-text)s</span>
+                            <span class="working label %(working-color)s">%(working-text)s</span>
+                            <span class="running label %(running-color)s">%(running-text)s</span>
+                        </div>
+                        <div class="float-right button-group nomargin">
+                            <a title="{L_MANAGE_DEV_UPDATE}" class="button" href="#"><i class="fa fa-refresh"></i></a>
+                            <a title="{L_MANAGE_DEV_EDIT}"   class="button" href="%(edit-url)s"><i class="fa fa-pencil"></i></a>
+                            <a title="{L_MANAGE_DEV_REBOOT}" class="button alert" href="#"><i class="fa fa-power-off"></i></a>
+                            <a title="{L_MANAGE_DEV_DELETE}" class="button alert ap-delete" href="%(delete-url)s"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
