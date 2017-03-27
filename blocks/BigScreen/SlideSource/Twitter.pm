@@ -59,15 +59,19 @@ sub _twitter_to_datetime {
     my $self    = shift;
     my $datestr = shift;
 
-    my $parser = DateTime::Format::CLDR->new(pattern   => 'EEE MMM dd HH:mm:ss Z yyyy',
-                                             time_zone => 'Europe/London');
+    # CLDR requires base TZ for offset
+    $datestr =~ s/([-+]\d+)/GMT$1/;
+
+    my $parser = DateTime::Format::CLDR->new(pattern => 'EEE MMM dd HH:mm:ss ZZZZ yyyy');
 
     my $datetime = eval { $parser -> parse_datetime($datestr); };
     if($@) {
         $self -> log("error", "Failed to parse datetime from '$datestr'");
-        return DateTime -> now();
+        return DateTime -> now(time_zone => $self -> {"settings"} -> {"config"} -> {"time_zone"});
     }
 
+    # Set the TZ forcibly, overriding the bovine excrement in the twitter feed
+    $datetime -> set_time_zone($self -> {"settings"} -> {"config"} -> {"time_zone"});
     return $datetime;
 }
 
