@@ -74,6 +74,47 @@
                     }
                 }
             }
+        },
+        "/devices/{identifier}": {
+            "get": {
+                "tags": [
+                    "devices"
+                ],
+                "summary": "Fetch the information for known display devices.",
+                "description": "Request a list of currently known devices and their status.\n\n**Required capabilities**: api.use\n",
+                "parameters": [
+                    {
+                        "name": "identifier",
+                        "in": "path",
+                        "description": "Optional identifier to filter device data with",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of devices",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Device"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

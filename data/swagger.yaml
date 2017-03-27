@@ -1,16 +1,11 @@
-# this is an example of the Uber API
-# as a demonstration of an API spec in YAML
 swagger: '2.0'
 info:
   title: Big Screen API
   description: REST Interface to Big Screen functions
-  version: "1.0.0"
-# the domain of the service
+  version: 1.0.0
 host: azad.cs.man.ac.uk
-# array of all schemes that your API supports
 schemes:
   - https
-# will be prefixed to all paths
 basePath: /bigscreen/rest/api
 produces:
   - application/json
@@ -20,16 +15,21 @@ paths:
       tags:
         - auth
       summary: Request API Token
-      description: |
-        Request an API token to use when issuing queries to the REST API. When calling the API programmatically, include this token in the 'Private-Token' request header field with each request made. Note that each call to this endpoint will generate a new API token, invalidating any token previously associated with your account.
-        
+      description: >
+        Request an API token to use when issuing queries to the REST API. When
+        calling the API programmatically, include this token in the
+        'Private-Token' request header field with each request made. Note that
+        each call to this endpoint will generate a new API token, invalidating
+        any token previously associated with your account.
+
+
         **Required capabilities**: api.use
       responses:
-        200:
+        '200':
           description: An API Token
           schema:
-              $ref: '#/definitions/Token'
-        403:
+            $ref: '#/definitions/Token'
+        '403':
           description: Permission error
           schema:
             $ref: '#/definitions/Error'
@@ -44,16 +44,46 @@ paths:
       summary: Fetch the information for known display devices.
       description: |
         Request a list of currently known devices and their status.
-        
+
         **Required capabilities**: api.use
       responses:
-        200:
+        '200':
           description: A list of devices
           schema:
             type: array
             items:
               $ref: '#/definitions/Device'
-        403:
+        '403':
+          description: Permission error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /devices/{identifier}:
+    get:
+      tags:
+        - devices
+      summary: Fetch the information for known display devices.
+      description: |
+        Request a list of currently known devices and their status.
+
+        **Required capabilities**: api.use
+      parameters:
+        - name: identifier
+          in: path
+          description: Optional identifier to filter device data with
+          required: true
+          type: string
+      responses:
+        '200':
+          description: A list of devices
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Device'
+        '403':
           description: Permission error
           schema:
             $ref: '#/definitions/Error'
