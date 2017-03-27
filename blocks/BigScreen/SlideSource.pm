@@ -50,11 +50,12 @@ sub new {
     my $class    = ref($invocant) || $invocant;
     my $self     = $class -> SUPER::new(gravatar_url => "%(base)s?s=%(size)s&r=g&d=mm",
                                         duplicate    => 1,
+                                        timefmt      => "%a, %d %b %Y %H:%M:%S %Z",
                                         @_)
         or return undef;
 
     # convert the maxage string to something useful
-    $self -> {"maxage"} = DateTime -> now(time_zone => 'Europe/London')
+    $self -> {"maxage"} = DateTime -> now(time_zone => $self -> {"settings"} -> {"config"} -> {"time_zone"})
                                    -> subtract(seconds => ($self -> {"maxage"} * 86400))
         if($self -> {"maxage"});
 

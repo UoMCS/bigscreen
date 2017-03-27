@@ -22,6 +22,7 @@ package BigScreen::API;
 use strict;
 use experimental 'smartmatch';
 use base qw(BigScreen);
+use Webperl::Utils qw(path_join);
 use JSON;
 use DateTime;
 use v5.12;
@@ -65,6 +66,12 @@ sub _show_api_docs {
 # ============================================================================
 #  API functions
 
+## @method private $ _build_token_response()
+# Generate an API token for the currently logged-in user.
+#
+# @api GET /token
+#
+# @return A reference to a hash containing the API response data.
 sub _build_token_response {
     my $self = shift;
 
@@ -75,12 +82,59 @@ sub _build_token_response {
 }
 
 
+## @method private $ _build_devices_response()
+# Generate the information about the status of devices currently
+# defined within the system.
+#
+# @api GET /devices
+#
+# @return A reference to a hash containing the API response data.
+sub _build_devices_response {
+    my $self = shift;
+
+    my $devices = $self -> {"module"} -> load_module("BigScreen::System::Devices")
+        or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $self -> {"module"} -> errstr()}));
+
+    my $devlist = $devices -> get_devices()
+        or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
+
+    my @response;
+    foreach my $device (@{$devlist}) {
+        my $status = $devices -> get_device_status($device -> {"id"})
+            or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
+
+        # Work out the screenshot URLs
+        my ($fullurl, $thumburl);
+        if($status -> {"screen"}) {
+            $status -> {"screen"} = {
+                "full"  => path_join($self -> {"settings"} -> {"config"} -> {"Devices:webdir"}, $device -> {"name"}, "full.png"),
+                "thumb" => path_join($self -> {"settings"} -> {"config"} -> {"Devices:webdir"}, $device -> {"name"}, "small.jpg"),
+            };
+        } else {
+            $status -> {"screen"} = {
+                "full"  => path_join($self -> {"template"} -> {"templateurl"}, "images", "placeholder.png"),
+                "thumb" => path_join($self -> {"template"} -> {"templateurl"}, "images", "placeholder.png"),
+            };
+        }
+
+        push(@response, { "id"          => $device -> {"id"},
+                          "name"        => $device -> {"name"},
+                          "description" => $device -> {"description"},
+                          "status"      => $status });
+    }
+
+    return \@response;
+}
+
+
 # ============================================================================
 #  Interface functions
 
 ## @method $ page_display()
 # Produce the string containing this block's full page content. This generates
 # the compose page, including any errors or user feedback.
+#
+# @capabilities api.grade
 #
 # @return The string containing this block's page content.
 sub page_display {
@@ -98,6 +152,8 @@ sub page_display {
 
         # API call - dispatch to appropriate handler.
         given($apiop) {
+            when("token")   { $self -> api_response($self -> _build_token_response());   }
+            when("devices") { $self -> api_response($self -> _build_devices_response()); }
 
             when("") { return $self -> _show_api_docs(); }
 

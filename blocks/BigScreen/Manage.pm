@@ -126,8 +126,14 @@ sub _build_source_row {
 
 
 # ============================================================================
-#  validators
+#  Validators
 
+## @method private @ _validate_source($modlist)
+# Check whether the values submitted for a slide source are valid.
+#
+# @param modlist A reference to an array of valid module ids
+# @return A reference to a hash of validated arguments, and a string containing
+#         any error messages.
 sub _validate_source {
     my $self    = shift;
     my $modlist = shift;
@@ -156,6 +162,13 @@ sub _validate_source {
 }
 
 
+## @method private @ _validate_new($modlist)
+# Check whether the values submitted by the user for a new slide source are
+# valid, and if so create the new slide source.
+#
+# @param modlist A reference to an array of valid module ids
+# @return Undef on success, otherwise a reference to a hash of validated
+#         arguments, and a string containing any error messages.
 sub _validate_new {
     my $self    = shift;
     my $modlist = shift;
@@ -174,6 +187,14 @@ sub _validate_new {
 }
 
 
+## @method private @ _validate_edit($sourceid, $modlist)
+# Check whether the values submitted by the user for an edit to an existing
+# slide source are valid, and if so update the slide source.
+#
+# @param sourceid The ID of the slide source being edited
+# @param modlist A reference to an array of valid module ids
+# @return Undef on success, otherwise a reference to a hash of validated
+#         arguments, and a string containing any error messages.
 sub _validate_edit {
     my $self     = shift;
     my $sourceid = shift;
@@ -197,13 +218,21 @@ sub _validate_edit {
 # ============================================================================
 #  Request handlers
 
+## @method private @ _handle_state_change($sourceid, $status)
+# Modify the status of a slide. This is used to enable or disable a slide source,
+# including or excluding the slides it generates from the big screen.
+#
+# @note This does no permissions checks - it relies on the manage permission
+#       being checked by the caller.
+#
+# @param sourceid The ID of the slide source to modify the status of.
+# @param status   The status to set, should be 1 to enable the source and 0 to
+#                 disable it.
+# @return An array of values containing the page title, content, and extrahead.
 sub _handle_state_change {
     my $self     = shift;
     my $sourceid = shift;
     my $status   = shift;
-
-    # NOTE: This does no permissions checks here - it relies on the manage permission
-    # being checked by the caller.
 
     # Check that the source ID seems valid
     return $self -> _fatal_error("{L_MANAGE_ERR_NOSID}")
@@ -225,6 +254,13 @@ sub _handle_state_change {
 }
 
 
+## @method private @ _handle_new()
+# Generate and process the form the user can use to add slide sources to the system.
+#
+# @note This does no permissions checks - it relies on the manage permission
+#       being checked by the caller.
+#
+# @return An array of values containing the page title, content, and extrahead.
 sub _handle_new {
     my $self   = shift;
     my $args   = {};
@@ -285,6 +321,15 @@ sub _handle_new {
 }
 
 
+
+## @method private @ _handle_edit($sourceid)
+# Generate and process the form the user can use to edit an existing slide source.
+#
+# @note This does no permissions checks - it relies on the manage permission
+#       being checked by the caller.
+#
+# @param sourceid The ID of the slide source to edit.
+# @return An array of values containing the page title, content, and extrahead.
 sub _handle_edit {
     my $self     = shift;
     my $sourceid = shift;
@@ -296,10 +341,8 @@ sub _handle_edit {
     return $self -> _fatal_error("{L_MANAGE_ERR_BADSID}")
         unless($sourceid =~ /^\d+$/);
 
-    my $args   = $self -> {"sources"} -> get_slide_source($sourceid)
+    my $args = $self -> {"sources"} -> get_slide_source($sourceid)
         or return $self -> _fatal_error($self -> {"sources"} -> errstr());
-
-    my $errors = "";
 
     my $modules = $self -> {"sources"} -> get_slide_modules()
         or return $self -> _fatal_error("Unable to obtain a list of slide modules");
@@ -319,6 +362,7 @@ sub _handle_edit {
     }
 
     # Now pick up and handle validation
+    my $errors = "";
     if($self -> {"cgi"} -> param("edit")) {
         $self -> log("manage.edit", "User has submitted data for source edit");
 
@@ -332,6 +376,7 @@ sub _handle_edit {
             if(!$errors);
     }
 
+    # Handle any errors generated in validation, placing them in an error box
     if($errors) {
         $self -> log("manage.edit", "Errors detected in edit: $errors");
 
@@ -356,12 +401,17 @@ sub _handle_edit {
 }
 
 
+## @method private @ _handle_delete($sourceid)
+# Remove the specified source from the system.
+#
+# @note This does no permissions checks - it relies on the manage permission
+#       being checked by the caller.
+#
+# @param sourceid The ID of the slide source to modify the status of.
+# @return An array of values containing the page title, content, and extrahead.
 sub _handle_delete {
     my $self     = shift;
     my $sourceid = shift;
-
-    # NOTE: This does no permissions checks here - it relies on the manage permission
-    # being checked by the caller.
 
     # Check that the source ID seems valid
     return $self -> _fatal_error("{L_MANAGE_ERR_NOSID}")
@@ -380,6 +430,11 @@ sub _handle_delete {
 }
 
 
+## @method private @ _handle_default()
+# Generate a page listing the currently defined slide sources, and presenting the
+# controls to allow the sources to be managed.
+#
+# @return An array of values containing the page title, content, and extrahead.
 sub _handle_default {
     my $self = shift;
 
@@ -404,8 +459,6 @@ sub _handle_default {
 }
 
 
-
-
 ## @method private $ _dispatch_ui()
 # Implements the core behaviour dispatcher for non-api functions. This will
 # inspect the state of the pathinfo and invoke the appropriate handler
@@ -419,6 +472,7 @@ sub _dispatch_ui {
     my ($title, $body, $extrahead, $extrajs) = ("", "", "", "");
     my @pathinfo = $self -> {"cgi"} -> multi_param("pathinfo");
 
+    # All the _handle_* functions require manage permission, so check it once here.
     if($self -> check_permission("manage")) {
         given($pathinfo[0]) {
             when("enable")  { ($title, $body, $extrahead, $extrajs) = $self -> _handle_state_change($pathinfo[1], 1); }

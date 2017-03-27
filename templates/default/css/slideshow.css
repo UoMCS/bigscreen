@@ -18,6 +18,9 @@
     .timedorbit-container {
         height: 850px;
     }
+    .timedorbit-slide .slide-content img {
+        max-height: 640px;
+    }
 }
 
 @media screen and (min-height: 700px) and (max-height: 849px) {
@@ -26,6 +29,9 @@
     }
     .timedorbit-container {
         height: 720px;
+    }
+    .timedorbit-slide .slide-content img {
+        max-height: 510px;
     }
     .bigscreen {
         display: none;
@@ -138,7 +144,7 @@ div.tellus {
 }
 
 .timedorbit-slide .slide-posted {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     margin-bottom: 0.5rem;
 }
 
@@ -157,7 +163,7 @@ div.tellus {
 }
 
 .timedorbit-slide img.article {
-    max-width: 600px !important;
+    max-width: 40% !important;
 }
 
 .timedorbit-slide.type0 {
@@ -279,4 +285,7 @@ div.tellus {
 
 .float-right.callout {
     margin-left: 0.5rem;
+}
+.float-left.callout {
+    margin-right: 0.5rem;
 }

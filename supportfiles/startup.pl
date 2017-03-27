@@ -38,6 +38,7 @@ use BigScreen::System::Metadata;
 use BigScreen::System::Roles;
 use BigScreen::System::SlideSource;
 use BigScreen::System::Tags;
+use BigScreen::System::Devices;
 use BigScreen::System;
 use BigScreen::Userbar;
 1;
