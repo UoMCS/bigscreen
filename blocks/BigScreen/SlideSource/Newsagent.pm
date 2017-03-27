@@ -81,6 +81,7 @@ sub _newsagent_to_datetime {
         return DateTime -> now(time_zone => $self -> {"settings"} -> {"config"} -> {"time_zone"});
     }
 
+    $datetime -> set_time_zone($self -> {"settings"} -> {"config"} -> {"time_zone"});
     return $datetime;
 }
 
