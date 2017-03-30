@@ -1,4 +1,4 @@
-                    <div class="divider devicerow clearfix" id="device-%(id)s">
+                    <div class="divider devicerow clearfix" id="device-%(id)s" data-name="%(name)s">
                         <h4 class="device-name">%(description)s</h4>
                         <div class="float-left">
                             <img class="callout small device-img float-left" src="%(small-img)s" />
@@ -7,9 +7,9 @@
                             <span class="running label %(running-color)s">%(running-text)s</span>
                         </div>
                         <div class="float-right button-group nomargin">
-                            <a title="{L_MANAGE_DEV_UPDATE}" class="button" href="#"><i class="fa fa-refresh"></i></a>
-                            <a title="{L_MANAGE_DEV_EDIT}"   class="button" href="%(edit-url)s"><i class="fa fa-pencil"></i></a>
-                            <a title="{L_MANAGE_DEV_REBOOT}" class="button alert" href="#"><i class="fa fa-power-off"></i></a>
-                            <a title="{L_MANAGE_DEV_DELETE}" class="button alert ap-delete" href="%(delete-url)s"><i class="fa fa-trash-o"></i></a>
+                            <button title="{L_MANAGE_DEV_UPDATE}" class="button refresh"><i class="fa fa-refresh"></i></button>
+                            <a      title="{L_MANAGE_DEV_EDIT}"   class="button edit" href="%(edit-url)s"><i class="fa fa-pencil"></i></a>
+                            <button title="{L_MANAGE_DEV_REBOOT}" class="button reboot alert"><i class="fa fa-power-off"></i></button>
+                            <button title="{L_MANAGE_DEV_DELETE}" class="button delete alert"><i class="fa fa-trash-o"></i></button>
                         </div>
                     </div>

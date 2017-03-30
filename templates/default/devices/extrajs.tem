@@ -1,0 +1,4 @@
+            var deviceurl = "%(device-url)s";
+        </script>
+        <script src="{V_[jspath]}devices.js"></script>
+        <script>

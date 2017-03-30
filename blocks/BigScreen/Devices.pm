@@ -150,8 +150,13 @@ sub _handle_default {
                                                      "%(new-url)s"   => $self -> build_url(block => "devmng",
                                                                                            pathinfo => [ "new" ],
                                                                                            params   => ""),
-                                                   }),
+                                                     }),
             $self -> {"template"} -> load_template("devices/extrahead.tem"),
+            $self -> {"template"} -> load_template("devices/extrajs.tem",
+                                                   { "%(device-url)s" => $self -> build_url(block => "rest",
+                                                                                            pathinfo => [ "api", "devices" ],
+                                                                                            params   => "")
+                                                   }),
         );
 }
 

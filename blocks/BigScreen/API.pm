@@ -90,7 +90,7 @@ sub _build_token_response {
 # @api GET /devices
 #
 # @return A reference to a hash containing the API response data.
-sub _build_devices_response {
+sub _build_get_devices_response {
     my $self    = shift;
     my $devname = shift;
 
@@ -106,6 +106,11 @@ sub _build_devices_response {
 
         my $status = $devices -> get_device_status($device -> {"id"})
             or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
+
+        # Convert status booleans
+        $status -> {"alive"}   = $status -> {"alive"} ? JSON::true : JSON::false;
+        $status -> {"running"} = $status -> {"running"} ? JSON::true : JSON::false;
+        $status -> {"working"} = $status -> {"working"} ? JSON::true : JSON::false;
 
         # Work out the screenshot URLs
         if($status -> {"screen"}) {
@@ -133,6 +138,22 @@ sub _build_devices_response {
     }
 
     return \@response;
+}
+
+
+sub _build_devices_response {
+    my $self     = shift;
+    my $pathinfo = shift;
+
+    if($self -> {"cgi"} -> request_method() eq "GET") {
+        return $self -> _build_get_devices_response($pathinfo -> [2]);
+
+    } elsif($self -> {"cgi"} -> request_method() eq "POST") {
+
+
+    }
+
+    return $self -> api_errorhash("bad_request", $self -> {"template"} -> replace_langvar("API_BAD_REQUEST"));
 }
 
 
@@ -164,7 +185,7 @@ sub page_display {
         # API call - dispatch to appropriate handler.
         given($apiop) {
             when("token")   { $self -> api_response($self -> _build_token_response());   }
-            when("devices") { $self -> api_response($self -> _build_devices_response($pathinfo[2])); }
+            when("devices") { $self -> api_response($self -> _build_devices_response(\@pathinfo)); }
 
             when("") { return $self -> _show_api_docs(); }
 
