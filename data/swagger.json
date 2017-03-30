@@ -86,7 +86,48 @@
                     {
                         "name": "identifier",
                         "in": "path",
-                        "description": "Optional identifier to filter device data with",
+                        "description": "The name of the device to fetch the information for",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of devices",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Device"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Permission error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/devices/{identifier}/reboot": {
+            "post": {
+                "tags": [
+                    "devices"
+                ],
+                "summary": "Reboot the specified device",
+                "description": "Attempt to reboot the specified device\n\n**Required capabilities**: api.use\n",
+                "parameters": [
+                    {
+                        "name": "identifier",
+                        "in": "path",
+                        "description": "The name of the device to reboot",
                         "required": true,
                         "type": "string"
                     }
