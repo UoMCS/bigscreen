@@ -94,6 +94,9 @@ sub _build_get_devices_response {
     my $self    = shift;
     my $devname = shift;
 
+    return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => "Illegal characters in device name"}))
+        unless(!$devname || $devname =~ /^\w+$/);
+
     my $devices = $self -> {"module"} -> load_module("BigScreen::System::Devices")
         or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $self -> {"module"} -> errstr()}));
 
