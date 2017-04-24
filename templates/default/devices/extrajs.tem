@@ -1,4 +1,5 @@
             var deviceurl = "%(device-url)s";
         </script>
+        <script src="{V_[templatepath]}3rdparty/elevatezoom-plus/src/jquery.ez-plus.js"></script>
         <script src="{V_[jspath]}devices.js"></script>
         <script>

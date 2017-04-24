@@ -44,7 +44,10 @@ function set_device(container, devinfo)
 {
     var now = new Date();
 
-    $(container).find('img.device-img').attr("src", devinfo.status.screen.thumb+"?"+now.getTime());
+    var img = $(container).find('img.device-img');
+    img.attr("src", devinfo.status.screen.thumb+"?"+now.getTime());
+    img.data("zoom-image", devinfo.status.screen.full+"?"+now.getTime());
+    img.ezPlus();
     set_status(container, 'alive'  , devinfo.status.alive, devinfo.statusstr.alive);
     set_status(container, 'running', devinfo.status.running, devinfo.statusstr.running);
     set_status(container, 'working', devinfo.status.working, devinfo.statusstr.working);
@@ -95,4 +98,6 @@ $(function() {
             error: function(jqXHR, exception) { ajax_error(jqXHR, exception); }
         });
     });
+
+    $('img.device-img').ezPlus();
 });
