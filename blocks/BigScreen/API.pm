@@ -144,6 +144,26 @@ sub _build_get_devices_response {
 }
 
 
+sub _build_post_device_reboot_response {
+    my $self    = shift;
+    my $devname = shift;
+
+    return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => "Illegal characters in device name"}))
+        unless($devname =~ /^\w+$/);
+
+    my $devices = $self -> {"module"} -> load_module("BigScreen::System::Devices")
+        or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $self -> {"module"} -> errstr()}));
+
+    my $device = $devices -> get_device_byname($devname)
+        or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
+
+    $devices -> reboot_device($device -> {"id"})
+        or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
+
+    return $self -> _build_get_devices_response($devname);
+}
+
+
 sub _build_devices_response {
     my $self     = shift;
     my $pathinfo = shift;
@@ -152,8 +172,11 @@ sub _build_devices_response {
         return $self -> _build_get_devices_response($pathinfo -> [2]);
 
     } elsif($self -> {"cgi"} -> request_method() eq "POST") {
+        my $reboot = $self -> api_param("reboot", 0, $pathinfo);
 
-
+        if($reboot) {
+            return $self -> _build_post_device_reboot_response($pathinfo -> [2]);
+        }
     }
 
     return $self -> api_errorhash("bad_request", $self -> {"template"} -> replace_langvar("API_BAD_REQUEST"));

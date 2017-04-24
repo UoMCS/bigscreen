@@ -59,6 +59,36 @@ $(function() {
         $.ajax({
             url: deviceurl + "/" + name,
             type: 'GET',
+            beforeSend: function() {
+                $(container).find('.button').prop('disabled', true);
+                $(container).find('.button').toggleClass('disabled', true);
+            },
+            complete: function() {
+                $(container).find('.button').prop('disabled', false);
+                $(container).find('.button').toggleClass('disabled', false);
+            },
+            success: function(result) {
+                set_device(container, result[0]);
+            },
+            error: function(jqXHR, exception) { ajax_error(jqXHR, exception); }
+        });
+    });
+
+    $('button.reboot').on('click', function() {
+        var container = this.closest('div.devicerow');
+        var name = $(container).data('name');
+
+        $.ajax({
+            url: deviceurl + "/" + name + "/reboot",
+            type: 'POST',
+            beforeSend: function() {
+                $(container).find('.button').prop('disabled', true);
+                $(container).find('.button').toggleClass('disabled', true);
+            },
+            complete: function() {
+                $(container).find('.button').prop('disabled', false);
+                $(container).find('.button').toggleClass('disabled', false);
+            },
             success: function(result) {
                 set_device(container, result[0]);
             },

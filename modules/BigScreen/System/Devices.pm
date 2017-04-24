@@ -45,6 +45,7 @@ sub new {
                                         screencap => "/usr/bin/ssh %(user)s\@%(ipaddr)s '%(cmd)s' > %(outfile)s",
                                         thumb     => "/usr/bin/convert %(source)s -resize 240x180 %(dest)s",
                                         pishot    => "/usr/bin/raspi2png -c 8 -s",
+                                        reboot    => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'sudo reboot &' 2>&1",
                                         @_)
         or return undef;
 
@@ -95,6 +96,32 @@ sub get_device {
 }
 
 
+## @method $ get_device_byname($name)
+# Given a device name, fetch the stored information about that device. Note
+# that this will return the data for at most one device; if the name matches
+# multiple devices (which should never happen), only the first one will be
+# returned.
+#
+# @param name The name of the device to fetch.
+# @return A reference to a hash containing the device data.
+sub get_device_byname {
+    my $self = shift;
+    my $name = shift;
+
+    $self -> clear_error();
+
+    my $devh = $self -> {"dbh"} -> prepare("SELECT *
+                                            FROM `".$self -> {"settings"} -> {"database"} -> {"devices"}."`
+                                            WHERE `name` LIKE ?
+                                            ORDER BY `id`
+                                            LIMIT 1");
+    $devh -> execute($name)
+        or return $self -> self_error("Unable to fetch device information: ".$self -> {"dbh"} -> errstr());
+
+    return $devh -> fetchrow_hashref();
+}
+
+
 ## @method $ get_device_status(id)
 # Obtain the status indicators for the specified device. This will attempt
 # to determine whethet the device is powered up, responding, showing the
@@ -122,6 +149,30 @@ sub get_device_status {
     $status -> {"screen"} = $self -> _fetch_screenshot($device);
 
     return $status;
+}
+
+
+## @method $ reboot_device($device)
+# Reboot the device specified.
+#
+# @param device A reference ot a hash containing the device information
+# @return true on successful reboot, undef on error.
+sub reboot_device {
+    my $self = shift;
+    my $id   = shift;
+
+    $self -> clear_error();
+
+    my $device = $self -> get_device($id)
+        or return undef;
+
+    my $bootcmd = named_sprintf($self -> {"reboot"}, { "ipaddr"  => $device -> {"ipaddr"},
+                                                       "user"    => $device -> {"username"} });
+    my $result = `$bootcmd`;
+
+    return 1 if($result =~ /^Connection to /);
+
+    return $self -> self_error("Reboot failed. Response: '$result'");
 }
 
 
@@ -226,5 +277,6 @@ sub _fetch_screenshot {
 
     return 1;
 }
+
 
 1;
