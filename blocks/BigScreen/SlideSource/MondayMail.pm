@@ -43,8 +43,11 @@ sub _split_monday_mail {
     $body =~ s/^.*?<div id="MMlinks"/<div id="MMlinks"/s;
     $body =~ s|<div id="MMlinks".*?</div>\s*||s;
 
+    # Remove empty end stuff
+    $body =~ s|(<p>&nbsp;</p>\s+)?</div>||gs;
+
     # And the footer
-    $body =~ s|(<p>\s*)?\[ End of The Monday Mail.*?\](</p>\s*)?</div>||;
+    $body =~ s|(<p>\s*)?\[ End of The Monday Mail.*?\](</p>\s*)?(</div>)?||;
 
     # Mark the start of each section so we can split on it
     $body =~ s/(<p>(?:<img .*?>)?)\* /<!--sep-->$1/g;
