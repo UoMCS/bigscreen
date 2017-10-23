@@ -45,7 +45,5 @@ $(function() {
         }
     });
 
-
-
     new Foundation.TimedOrbit($('#slideshow'), delays);
 });
