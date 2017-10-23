@@ -108,8 +108,7 @@
             this.$wrapper = this.$element.find(`.${this.options.containerClass}`);
             this.$slides = this.$element.find(`.${this.options.slideClass}`);
 
-            var $images = this.$element.find('img'),
-                initActive = this.$slides.filter('.is-active'),
+            var initActive = this.$slides.filter('.is-active'),
                 id = this.$element[0].id || Foundation.GetYoDigits(6, 'timedorbit');
 
             this.$element.attr({
@@ -125,11 +124,7 @@
                 this.$slides.addClass('no-motionui');
             }
 
-            if ($images.length) {
-                Foundation.onImagesLoaded($images, this._prepareForTimedOrbit.bind(this));
-            } else {
-                this._prepareForTimedOrbit();//hehe
-            }
+            this._prepareForTimedOrbit();//hehe
 
             if (this.options.bullets) {
                 this._loadBullets();
