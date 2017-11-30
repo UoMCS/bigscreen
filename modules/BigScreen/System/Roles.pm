@@ -25,7 +25,7 @@
 package BigScreen::System::Roles;
 
 use strict;
-use base qw(Webperl::SystemModule);
+use parent qw(Webperl::SystemModule);
 
 # ==============================================================================
 # Creation

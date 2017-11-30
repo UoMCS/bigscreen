@@ -21,7 +21,7 @@ package BigScreen::Devices;
 
 use strict;
 use experimental 'smartmatch';
-use base qw(BigScreen);
+use parent qw(BigScreen);
 use Webperl::Utils qw(path_join);
 use v5.12;
 

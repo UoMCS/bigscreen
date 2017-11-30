@@ -20,7 +20,7 @@
 package BigScreen::AppUser;
 
 use strict;
-use base qw(Webperl::AppUser);
+use parent qw(Webperl::AppUser);
 use Digest::MD5 qw(md5_hex);
 use Webperl::Utils qw(trimspace);
 

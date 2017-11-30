@@ -37,7 +37,7 @@
 package BigScreen::System::Metadata;
 
 use strict;
-use base qw(Webperl::SystemModule);
+use parent qw(Webperl::SystemModule);
 
 # ============================================================================
 #  Clean shutdown support

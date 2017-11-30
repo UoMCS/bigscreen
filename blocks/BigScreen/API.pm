@@ -21,7 +21,7 @@ package BigScreen::API;
 
 use strict;
 use experimental 'smartmatch';
-use base qw(BigScreen);
+use parent qw(BigScreen);
 use Webperl::Utils qw(path_join);
 use JSON;
 use DateTime;

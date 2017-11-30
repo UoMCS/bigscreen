@@ -21,7 +21,7 @@ package BigScreen::Manage;
 
 use strict;
 use experimental 'smartmatch';
-use base qw(BigScreen);
+use parent qw(BigScreen);
 use BigScreen::System::SlideSource;
 use HTML::Entities;
 use DateTime;

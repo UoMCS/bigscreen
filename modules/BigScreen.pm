@@ -24,7 +24,7 @@ use strict;
 use experimental qw(smartmatch);
 use v5.14;
 
-use base qw(Webperl::Block); # Features are just a specific form of Block
+use parent qw(Webperl::Block); # Features are just a specific form of Block
 use Digest;
 use CGI::Util qw(escape);
 use HTML::Entities;

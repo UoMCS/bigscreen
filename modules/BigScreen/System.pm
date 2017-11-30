@@ -23,7 +23,7 @@
 package BigScreen::System;
 
 use strict;
-use base qw(Webperl::System);
+use parent qw(Webperl::System);
 
 use BigScreen::System::Metadata;
 use BigScreen::System::Roles;

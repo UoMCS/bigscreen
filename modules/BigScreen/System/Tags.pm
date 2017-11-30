@@ -21,7 +21,7 @@
 package BigScreen::System::Tags;
 
 use strict;
-use base qw(Webperl::SystemModule);
+use parent qw(Webperl::SystemModule);
 
 # ==============================================================================
 #  Creation

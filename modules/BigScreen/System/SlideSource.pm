@@ -21,7 +21,7 @@ package BigScreen::System::SlideSource;
 
 use strict;
 use experimental 'smartmatch';
-use base qw(BigScreen);
+use parent qw(BigScreen);
 use JSON;
 use DateTime;
 use v5.12;

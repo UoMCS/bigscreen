@@ -25,7 +25,7 @@
 package BigScreen::BlockSelector;
 
 use strict;
-use base qw(Webperl::BlockSelector);
+use parent qw(Webperl::BlockSelector);
 
 # ============================================================================
 #  Block Selection

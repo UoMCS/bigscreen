@@ -27,7 +27,7 @@ package BigScreen::SlideSource;
 
 use strict;
 use experimental 'smartmatch';
-use base qw(BigScreen);
+use parent qw(BigScreen);
 use XML::LibXML;
 use LWP::UserAgent;
 use DateTime;
