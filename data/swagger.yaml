@@ -10,6 +10,26 @@ basePath: /bigscreen/rest/api
 produces:
   - application/json
 paths:
+  /slides:
+    get:
+      tags: 
+        - slides
+      summary: Request the current slides
+      description: |
+        Request an array of slide contents
+      
+        **Required capabilities**: none
+      responses:
+        '200':
+          description: The array of slides
+        '403':
+          description: Permission error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /token:
     get:
       tags:
@@ -98,7 +118,7 @@ paths:
       summary: Reboot the specified device
       description: |
         Attempt to reboot the specified device
-        
+
         **Required capabilities**: api.use
       parameters:
         - name: identifier
@@ -121,7 +141,6 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-
 definitions:
   Token:
     type: object

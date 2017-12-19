@@ -14,6 +14,32 @@
         "application/json"
     ],
     "paths": {
+        "/slides": {
+            "get": {
+                "tags": [
+                    "slides"
+                ],
+                "summary": "Request the current slides",
+                "description": "Request an array of slide contents\n\n**Required capabilities**: none\n",
+                "responses": {
+                    "200": {
+                        "description": "The array of slides"
+                    },
+                    "403": {
+                        "description": "Permission error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
         "/token": {
             "get": {
                 "tags": [
