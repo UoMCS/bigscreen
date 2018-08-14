@@ -104,6 +104,7 @@ sub generate_slides {
         my $timestamp = $self -> _newsagent_to_datetime($pubdate -> to_literal);
         last unless($self -> in_age_limit($timestamp));
 
+        my ($aid)     = $item -> findnodes('./newsagent:id');
         my ($title)   = $item -> findnodes('./title');
         my ($desc)    = $item -> findnodes('./description');
         my ($author)  = $item -> findnodes('./author');
@@ -120,9 +121,11 @@ sub generate_slides {
         my ($email, $name) = $author -> to_literal =~ /^(.*?)\s*\(([^)]+)\)$/;
 
         my $bodyparts = $self -> _split_monday_mail($desc -> to_literal);
-
+        my $partnum = 0;
         foreach my $part (@{$bodyparts}) {
             next unless($part); # initial slide may be empty
+
+            ++$partnum;
 
             # Does this slide contain a paragraph containing just an image? If so, assume it
             # is the article image
@@ -140,7 +143,8 @@ sub generate_slides {
 
             # And now create the slide
             my $slide = $self -> {"template"} -> load_template("slideshow/slide.tem",
-                                                               { "%(slide-title)s"  => $title -> to_literal,
+                                                               { "%(id)s"           => $aid -> to_literal.".".$partnum,
+                                                                 "%(slide-title)s"  => $title -> to_literal,
                                                                  "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
                                                                  "%(author)s"       => $name,
                                                                  "%(email)s"        => $email,

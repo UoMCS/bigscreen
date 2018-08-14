@@ -67,6 +67,23 @@ sub _show_api_docs {
 # ============================================================================
 #  API functions
 
+## @method private $ _build_slides_response()
+# Return the slides to show on the big screen
+#
+# @api GET /slides
+#
+# @return A reference to a hash containing the API response data.
+sub _build_slides_response {
+    my $self = shift;
+
+    my $sources = $self -> {"module"} -> load_module("BigScreen::System::SlideSource")
+        or return $self -> api_errorhash('internal_error', "Slide show module object creation failed: ".$self -> {"module"} -> errstr());
+
+    return { "slides" => $sources -> get_slides() };
+
+}
+
+
 ## @method private $ _build_token_response()
 # Generate an API token for the currently logged-in user.
 #
@@ -201,6 +218,11 @@ sub page_display {
     # Is this an API call, or a normal page operation?
     my $apiop = $self -> is_api_operation();
     if(defined($apiop)) {
+        # API operations that are callable by anonymous users first
+        given($apiop) {
+            when("slides")  { $self -> api_response($self -> _build_slides_response()); }
+        }
+
         # General API permission check - will block anonymous users at a minimum
         return $self -> api_response($self -> api_errorhash('permission',
                                                             "You do not have permission to use the API"))
@@ -210,7 +232,7 @@ sub page_display {
 
         # API call - dispatch to appropriate handler.
         given($apiop) {
-            when("token")   { $self -> api_response($self -> _build_token_response());   }
+            when("token")   { $self -> api_response($self -> _build_token_response());  }
             when("devices") { $self -> api_response($self -> _build_devices_response(\@pathinfo)); }
 
             when("") { return $self -> _show_api_docs(); }

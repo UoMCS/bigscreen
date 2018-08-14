@@ -128,16 +128,20 @@ sub generate_slides {
             my $slide_avatar = $self -> {"template"} -> load_template("slideshow/avatar.tem",
                                                                       {"%(url)s" => $src });
 
+            my $id = $title -> attr('id');
+            $id =~ s/article-//;
+
             # And now create the slide
             my $slide = $self -> {"template"} -> load_template("slideshow/slide.tem",
-                                                               { "%(slide-title)s"  => $title -> as_text(),
-                                                                     "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
-                                                                     "%(author)s"       => $name,
-                                                                     "%(email)s"        => "",
-                                                                     "%(posted)s"       => $timestamp -> strftime($self -> {"timefmt"}),
-                                                                     "%(slide-avatar)s" => $slide_avatar,
-                                                                     "%(content)s"      => $content -> as_HTML(),
-                                                                     "%(type)s"         => $self -> determine_type("1234"),
+                                                               { "%(id)s"           => $id,
+                                                                 "%(slide-title)s"  => $title -> as_text(),
+                                                                 "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
+                                                                 "%(author)s"       => $name,
+                                                                 "%(email)s"        => "",
+                                                                 "%(posted)s"       => $timestamp -> strftime($self -> {"timefmt"}),
+                                                                 "%(slide-avatar)s" => $slide_avatar,
+                                                                 "%(content)s"      => $content -> as_HTML(),
+                                                                 "%(type)s"         => $self -> determine_type("1234"),
                                                                });
             push(@slides, { "slide"     => $slide,
                                 "duplicate" => $self -> {"duplicate"} // 1,

@@ -127,7 +127,8 @@ sub generate_slides {
                                                               "%(url)s"     => $image });
 
         my $slide = $self -> {"template"} -> load_template("slideshow/slide.tem",
-                                                             { "%(slide-title)s"  => "{L_SLIDE_TWITTER_TITLE}",
+                                                            { "%(id)s"           => $status -> {"id"},
+                                                               "%(slide-title)s"  => "{L_SLIDE_TWITTER_TITLE}",
                                                                "%(account)s"      => $self -> {"account"},
                                                                "%(posted)s"       => $timestamp -> strftime($self -> {"timefmt"}),
                                                                "%(byline)s"       => $byline,

@@ -129,6 +129,7 @@ sub generate_slides {
         last unless($self -> in_age_limit($timestamp));
 
         # Pull out the bits of the item we're interesed in
+        my ($aid)     = $item -> findnodes('./newsagent:id');
         my ($title)   = $item -> findnodes('./title');
         my ($desc)    = $item -> findnodes('./description');
         my ($author)  = $item -> findnodes('./author');
@@ -160,7 +161,8 @@ sub generate_slides {
 
         # And now create the slide
         my $slide = $self -> {"template"} -> load_template("slideshow/slide.tem",
-                                                           { "%(slide-title)s"  => $title -> to_literal,
+                                                           { "%(id)s"           => $aid -> to_literal,
+                                                             "%(slide-title)s"  => $title -> to_literal,
                                                              "%(byline)s"       => $self -> {"template"} -> load_template("slideshow/byline-oneauthor.tem"),
                                                              "%(author)s"       => $name,
                                                              "%(email)s"        => $email,

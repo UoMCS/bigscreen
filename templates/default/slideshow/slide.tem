@@ -1,10 +1,10 @@
-                            <li class="timedorbit-slide %(type)s %(active)s" data-slide="%(slidenum)s" style="%(style)s">
-                                <div class="slide">
-                                    <div class="slide-title">%(slide-title)s</div>
-                                    <div class="slide-posted"><i class="fa fa-newspaper-o"></i> {L_SLIDES_POSTED} %(posted)s</div>
-                                    <div class="slide-content">
+<li id="%(id)s" class="timedorbit-slide %(type)s %(active)s" data-slide="%(slidenum)s" style="%(style)s">
+<div class="slide">
+<div class="slide-title">%(slide-title)s</div>
+<div class="slide-posted"><i class="fa fa-newspaper-o"></i> {L_SLIDES_POSTED} %(posted)s</div>
+<div class="slide-content">
 %(content)s
-                                    </div>
-                                    <div class="slide-byline clearfix">%(byline)s</div>
-                                </div>
-                            </li>
+</div>
+<div class="slide-byline clearfix">%(byline)s</div>
+</div>
+</li>
