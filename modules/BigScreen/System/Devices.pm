@@ -41,7 +41,7 @@ sub new {
     my $invocant = shift;
     my $class    = ref($invocant) || $invocant;
     my $self     = $class -> SUPER::new(working   => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'echo Working'",
-                                        running   => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'ps -ef | grep /bigscreen/ | grep -v grep'",
+                                        running   => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'ps -ef | grep kiosk | grep -v grep'",
                                         screencap => "/usr/bin/ssh %(user)s\@%(ipaddr)s '%(cmd)s' > %(outfile)s",
                                         thumb     => "/usr/bin/convert %(source)s -resize 240x180 %(dest)s",
                                         pishot    => "/usr/bin/raspi2png -c 8 -s",
@@ -235,7 +235,7 @@ sub _check_running {
                                                          "user"   => $username });
     my $result = `$checkcmd`;
 
-    my ($browser, $url) = $result =~ m|(chromium-browser).*?--kiosk (https://.*?bigscreen)|;
+    my ($browser, $url) = $result =~ m|(chromium-browser).*?--kiosk\s+(https?\://)|;
 
     return (defined($browser) && defined($url));
 }
