@@ -12,12 +12,12 @@ produces:
 paths:
   /slides:
     get:
-      tags: 
+      tags:
         - slides
       summary: Request the current slides
       description: |
         Request an array of slide contents
-      
+
         **Required capabilities**: none
       responses:
         '200':
@@ -112,6 +112,36 @@ paths:
           schema:
             $ref: '#/definitions/Error'
   '/devices/{identifier}/reboot':
+    post:
+      tags:
+        - devices
+      summary: Update the IP for the specified device
+      description: |
+        Attempt to update the IP address for the specified device
+
+        **Required capabilities**: api.use
+      parameters:
+        - name: identifier
+          in: path
+          description: The name of the device to update
+          required: true
+          type: string
+      responses:
+        '200':
+          description: A list of devices
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Device'
+        '403':
+          description: Permission error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/devices/{identifier}/setip':
     post:
       tags:
         - devices

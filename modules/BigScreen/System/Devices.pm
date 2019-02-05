@@ -176,6 +176,23 @@ sub reboot_device {
 }
 
 
+sub set_device_ip {
+    my $self   = shift;
+    my $device = shift;
+    my $ipaddr = shift;
+
+    $self -> clear_error();
+
+    my $update = $self -> {"dbh"} -> prepare("UPDATE `".$self -> {"settings"} -> {"database"} -> {"devices"}."`
+                                              SET `ipaddr` = ?
+                                              WHERE `id` = ?");
+    $update -> execute($ipaddr, $device)
+        or return $self -> self_error("Unable to update device information: ".$self -> {"dbh"} -> errstr());
+
+    return 1
+}
+
+
 # ============================================================================
 #  Internals
 
