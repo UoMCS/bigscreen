@@ -194,6 +194,8 @@ sub _build_post_device_setip_response {
     my $device = $devices -> get_device_byname($devname)
         or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
 
+    $self -> log("api:update", "Setting IP address for device '$devname' (".$device -> {"id"}.") to '".$self -> {"cgi"} -> remote_addr()."'");
+
     $devices -> set_device_ip($device -> {"id"}, $self -> {"cgi"} -> remote_addr())
         or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
 
