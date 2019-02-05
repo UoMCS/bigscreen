@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Optional self-identification - uncomment to use
+# TOKEN="TOKENHERE"
+# NAME="NAMEHERE"
+# wget --header="Private-Token: $TOKEN" "https://URL.HERE/rest/api/devices/$NAME/setip" -O /dev/null
+
 # Remove any config and cache files to prevent problems with caching
 rm -rf /home/pi/.config/chromium
 rm -rf /home/pi/.cache/chromium
