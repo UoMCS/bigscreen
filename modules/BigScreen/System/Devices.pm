@@ -40,12 +40,12 @@ use Net::Ping::External qw(ping);
 sub new {
     my $invocant = shift;
     my $class    = ref($invocant) || $invocant;
-    my $self     = $class -> SUPER::new(working   => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'echo Working'",
-                                        running   => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'ps -ef | grep kiosk | grep -v grep'",
-                                        screencap => "/usr/bin/ssh %(user)s\@%(ipaddr)s '%(cmd)s' > %(outfile)s",
+    my $self     = $class -> SUPER::new(working   => "/usr/bin/ssh -p%(port)s %(user)s\@%(ipaddr)s 'echo Working'",
+                                        running   => "/usr/bin/ssh -p%(port)s %(user)s\@%(ipaddr)s 'ps -ef | grep kiosk | grep -v grep'",
+                                        screencap => "/usr/bin/ssh -p%(port)s %(user)s\@%(ipaddr)s '%(cmd)s' > %(outfile)s",
                                         thumb     => "/usr/bin/convert %(source)s -resize 240x180 %(dest)s",
                                         pishot    => "/usr/bin/raspi2png -c 8 -s",
-                                        reboot    => "/usr/bin/ssh %(user)s\@%(ipaddr)s 'sudo reboot &' 2>&1",
+                                        reboot    => "/usr/bin/ssh -p%(port)s %(user)s\@%(ipaddr)s 'sudo reboot &' 2>&1",
                                         @_)
         or return undef;
 
@@ -137,16 +137,16 @@ sub get_device_status {
     my $device = $self -> get_device($id)
         or return undef;
 
-    $status -> {"alive"}   = $self -> _check_alive($device -> {"ipaddr"})
+    $status -> {"alive"}   = $self -> _check_alive($device -> {"ipaddr"}, $device -> {"port"})
         or return {};
 
-    $status -> {"working"} = $self -> _check_working($device -> {"ipaddr"}, $device -> {"username"})
+    $status -> {"working"} = $self -> _check_working($device -> {"ipaddr"}, $device -> {"port"}, $device -> {"username"})
         or return $status;
 
-    $status -> {"running"} = $self -> _check_running($device -> {"ipaddr"}, $device -> {"username"})
+    $status -> {"running"} = $self -> _check_running($device -> {"ipaddr"}, $device -> {"port"}, $device -> {"username"})
         or return $status;
 
-    $status -> {"screen"} = $self -> _fetch_screenshot($device);
+    $status -> {"screen"} = $self -> _fetch_screenshot($device, $device -> {"port"});
 
     return $status;
 }
@@ -167,6 +167,7 @@ sub reboot_device {
         or return undef;
 
     my $bootcmd = named_sprintf($self -> {"reboot"}, { "ipaddr"  => $device -> {"ipaddr"},
+                                                       "port"    => $device -> {"port"},
                                                        "user"    => $device -> {"username"} });
     my $result = `$bootcmd`;
 
@@ -176,6 +177,13 @@ sub reboot_device {
 }
 
 
+## @method $ set_device_ip($device, $ipaddr)
+# Set the IP address for the device. This will update the IP address for
+# the device with the specified ID.
+#
+# @param device The ID of the device to update the IP address for.
+# @param ipaddr The IP address of the device
+# @return true on success, undef on error.
 sub set_device_ip {
     my $self   = shift;
     my $device = shift;
@@ -213,20 +221,23 @@ sub _check_alive {
 }
 
 
-## @method private $ _check_working($ipaddr, $username)
+## @method private $ _check_working($ipaddr, $port, $username)
 # Check whether the device at the specified IP address is accepting SSH
 # connections and responds. This is a heavier-duty ping that checks
 # whether the device is in a state where it is running a SSH server and
 # can run other programs.
 #
 # @param ipaddr The IP address (or hostname) of the device to check.
+# @param port   The port to use for ssh.
 # @return true if the device seems to be working, false otherwise.
 sub _check_working {
     my $self     = shift;
     my $ipaddr   = shift;
+    my $port     = shift;
     my $username = shift;
 
     my $checkcmd = named_sprintf($self -> {"working"}, { "ipaddr" => $ipaddr,
+                                                         "port"   => $port,
                                                          "user"   => $username });
     my $result = `$checkcmd`;
 
@@ -234,21 +245,24 @@ sub _check_working {
 }
 
 
-## @method private $ _check_running($ipaddr, $username)
+## @method private $ _check_running($ipaddr, $port, $username)
 # Determine whether the device is running a web browser showing the
 # big screen. This looks at the device's process list, and tries to
 # work out whether a web browser is running on the device, and it is
 # showing the display in kiosk mode.
 #
 # @param ipaddr The IP address (or hostname) of the device to check.
+# @param port   The port to use for ssh.
 # @return true if the device seems to be showing the big screen
 #         display, false otherwise.
 sub _check_running {
     my $self     = shift;
     my $ipaddr   = shift;
+    my $port     = shift;
     my $username = shift;
 
     my $checkcmd = named_sprintf($self -> {"running"}, { "ipaddr" => $ipaddr,
+                                                         "port"   => $port,
                                                          "user"   => $username });
     my $result = `$checkcmd`;
 
@@ -278,6 +292,7 @@ sub _fetch_screenshot {
     my $thumbdest = path_join($outpath, "small.jpg");
 
     my $fetchcmd = named_sprintf($self -> {"screencap"}, { "ipaddr"  => $device -> {"ipaddr"},
+                                                           "port"    => $device -> {"port"},
                                                            "user"    => $device -> {"username"},
                                                            "cmd"     => $device -> {"shotcmd"} || $self -> {"pishot"},
                                                            "outfile" => $pngdest });
