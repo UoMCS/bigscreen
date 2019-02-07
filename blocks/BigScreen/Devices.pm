@@ -80,6 +80,8 @@ sub _build_device_row {
     return $self -> {"template"} -> load_template("devices/device.tem",
                                                   { "%(id)s"          => $device -> {"id"},
                                                     "%(name)s"        => $device -> {"name"},
+                                                    "%(ipaddr)s"      => $device -> {"ipaddr"},
+                                                    "%(port)s"        => $device -> {"port"},
                                                     "%(description)s" => $device -> {"description"},
                                                     "%(small-img)s"   => $device -> {"status"} -> {"screen"} -> {"thumb"},
                                                     "%(full-img)s"    => $device -> {"status"} -> {"screen"} -> {"full"},
