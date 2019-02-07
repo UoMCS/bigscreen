@@ -139,6 +139,8 @@ sub _handle_default {
 
         $devlist .= $self -> _build_device_row({ "id"          => $device -> {"id"},
                                                  "name"        => $device -> {"name"},
+                                                 "ipaddr"      => $device -> {"ipaddr"},
+                                                 "port"        => $device -> {"port"},
                                                  "description" => $device -> {"description"},
                                                  "status"      => $status });
     }
