@@ -1,6 +1,6 @@
                     <div class="divider devicerow clearfix" id="device-%(id)s" data-name="%(name)s">
                         <h4 class="device-name">%(description)s</h4>
-                        <div class="info">%(ipaddr)s:%(port)s</div>
+                        <div class="info"><i class="fa fa-laptop"></i> %(ipaddr)s:%(port)s</div>
                         <div class="float-left">
                             <img class="callout small device-img float-left" src="%(small-img)s" data-zoom-image="%(full-img)s" />
                             <span class="alive label %(alive-color)s">%(alive-text)s</span>
