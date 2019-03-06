@@ -113,6 +113,8 @@
   position: relative;
   margin-top: 0.8rem;
   margin-bottom: 0.8rem;
+  padding-left: 10rem;
+  padding-right: 10rem;
   text-align: center; }
   [data-whatinput='mouse'] .timedorbit-bullets {
     outline: 0; }
