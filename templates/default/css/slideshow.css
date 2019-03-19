@@ -115,7 +115,10 @@
   margin-bottom: 0.8rem;
   padding-left: 10rem;
   padding-right: 10rem;
-  text-align: center; }
+  text-align: center;
+  overflow-y: scroll;
+  max-height: 2rem;
+}
   [data-whatinput='mouse'] .timedorbit-bullets {
     outline: 0; }
   .timedorbit-bullets button {
