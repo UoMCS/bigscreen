@@ -232,15 +232,15 @@ sub get_slides {
 
     # Fetch the list of slide sources to it can be processed
     my $sources = $self -> get_slide_sources()
-        or return $self -> _fatal_error("Unable to obtain a list of slide sources");
+        or return $self -> self_error("Unable to obtain a list of slide sources");
 
     my @slides = ();
     foreach my $source (@{$sources}) {
         my $slidemod = $self -> {"module"} -> load_module($source -> {"module"}, %{$source -> {"args"}})
-            or return $self -> _fatal_error("Unable to load slide module ".$source -> {"module"});
+            or return $self -> self_error("Unable to load slide module ".$source -> {"module"});
 
         my $slides = $slidemod -> generate_slides()
-            or return $self -> _fatal_error("Unable to process slides for ".$source -> {"module"}.": ".$slidemod -> errstr());
+            or return $self -> self_error("Unable to process slides for ".$source -> {"module"}.": ".$slidemod -> errstr());
 
         # store the new slides if there are any
         push(@slides, @{$slides})
