@@ -137,6 +137,8 @@ sub get_device_status {
     my $device = $self -> get_device($id)
         or return undef;
 
+    $self -> log("devices:status", "Checking device: ".$device -> {"name"});
+
     $status -> {"alive"}   = $self -> _check_alive($device -> {"ipaddr"}, $device -> {"port"})
         or return {};
 
@@ -217,6 +219,9 @@ sub _check_alive {
     my $ipaddr = shift;
 
     my $alive = ping(host => $ipaddr);
+
+    $self -> log("devices:alive", "Alive check, response: $alive");
+
     return $alive;
 }
 
@@ -240,6 +245,8 @@ sub _check_working {
                                                          "port"   => $port,
                                                          "user"   => $username });
     my $result = `$checkcmd`;
+
+    $self -> log("devices:working", "Working check, response: $result");
 
     return $result =~ /^Working/;
 }
@@ -267,6 +274,8 @@ sub _check_running {
     my $result = `$checkcmd`;
 
     my ($browser, $url) = $result =~ m|(chromium-browser).*?--kiosk\s+(https?\://)|;
+
+    $self -> log("devices:running", "Working check, response: $result");
 
     return (defined($browser) && defined($url));
 }
@@ -298,12 +307,16 @@ sub _fetch_screenshot {
                                                            "outfile" => $pngdest });
 
     my $result = `$fetchcmd`;
+    $self -> log("devices:screenshot", "Screenshot fetch, response: $result");
+
     return $self -> self_error("Image fetch failed: $result")
         if($result);
 
     my $thumbcmd = named_sprintf($self -> {"thumb"}, { "source" => $pngdest,
                                                        "dest"   => $thumbdest });
     $result = `$thumbcmd 2>&1`;
+    $self -> log("devices:screenshot", "Screenshot convert, response: $result");
+
     return $self -> self_error("Thumb image conversion failed: $result")
         if($result);
 

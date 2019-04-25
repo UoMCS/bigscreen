@@ -124,6 +124,8 @@ sub _build_get_devices_response {
     foreach my $device (@{$devlist}) {
         next if($devname && $device -> {"name"} ne $devname);
 
+        $self -> log("api.devices", "Looking up status for ".$device -> {"name"});
+
         my $status = $devices -> get_device_status($device -> {"id"})
             or return $self -> api_errorhash("internal_error", $self -> {"template"} -> replace_langvar("API_ERROR", {"%(error)s" => $devices -> errstr()}));
 
