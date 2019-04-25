@@ -111,8 +111,7 @@ sub generate_slides {
         $parser -> parse_content($desc -> to_literal);
         $parser -> elementify();
 
-        my @elements = $parser -> look_down(_tag => "td",
-                                            class => qr/na-testnews-articleitem/);
+        my @elements = $parser -> look_down(class => qr/na-testnews-articleitem/);
 
         foreach my $element (@elements) {
             my $title   = $element -> look_down(_tag  => "h3");
