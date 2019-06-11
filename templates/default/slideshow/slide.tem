@@ -1,6 +1,6 @@
 <li id="%(id)s" class="timedorbit-slide %(type)s %(active)s" data-slide="%(slidenum)s" style="%(style)s">
 <div class="slide">
-<div class="slide-cs">School of Computer Science News</div>
+<div class="slide-cs">Computer Science News</div>
 <div class="slide-title">%(slide-title)s</div>
 <div class="slide-posted"><i class="fa fa-newspaper-o"></i> {L_SLIDES_POSTED} %(posted)s</div>
 <div class="slide-content">
