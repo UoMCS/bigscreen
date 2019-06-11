@@ -1,0 +1,11 @@
+<li id="0.1" class="timedorbit-slide type4 %(active)s" data-slide="%(slidenum)s" style="%(style)s">
+<div class="slide">
+<div class="slide-title">Manchester Nightline</div>
+<div class="slide-content">
+<p style="text-align:center"><img alt="" src="{V_[templatepath]}images/NL.png" style="height:auto; width:65%" /></p>
+</div>
+<div class="slide-byline clearfix">
+manchester.nightline@gmail.com
+</div>
+</div>
+</li>
